@@ -389,7 +389,6 @@
                 <div class="relative aspect-[3/4] group overflow-hidden p-2 border border-wakanda-purple/50 bg-[#111] clip-futuristic transition-transform duration-500 hover:-translate-y-2">
                     <div class="absolute inset-0 bg-wakanda-diamonds opacity-[0.2] z-0 pointer-events-none"></div>
                     <div class="absolute inset-0 bg-wakanda-vibranium opacity-0 group-hover:opacity-20 transition-opacity z-10 pointer-events-none"></div>
-                    <!-- CAMINHO DA FOTO 1 ATUALIZADO PARA A PASTA IMG NO GITHUB -->
                     <img src="img/rosto%201.png" alt="Beatriz Anjos" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 relative z-20">
                     <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-wakanda-gold z-30 m-3"></div>
                     <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-wakanda-gold z-30 m-3"></div>
@@ -398,7 +397,6 @@
                 <div class="relative aspect-[3/4] group overflow-hidden p-2 border border-wakanda-purple/50 bg-[#111] clip-futuristic transition-transform duration-500 hover:-translate-y-2">
                     <div class="absolute inset-0 bg-wakanda-diamonds opacity-[0.2] z-0 pointer-events-none"></div>
                     <div class="absolute inset-0 bg-wakanda-vibranium opacity-0 group-hover:opacity-20 transition-opacity z-10 pointer-events-none"></div>
-                    <!-- CAMINHO DA FOTO 2 ATUALIZADO PARA A PASTA IMG NO GITHUB -->
                     <img src="img/rosto%202.png" alt="Beatriz Anjos" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 relative z-20">
                     <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-wakanda-gold z-30 m-3"></div>
                     <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-wakanda-gold z-30 m-3"></div>
@@ -407,7 +405,6 @@
                 <div class="relative aspect-[3/4] group overflow-hidden p-2 border border-wakanda-purple/50 bg-[#111] clip-futuristic transition-transform duration-500 hover:-translate-y-2 sm:col-span-2 md:col-span-1">
                     <div class="absolute inset-0 bg-wakanda-diamonds opacity-[0.2] z-0 pointer-events-none"></div>
                     <div class="absolute inset-0 bg-wakanda-vibranium opacity-0 group-hover:opacity-20 transition-opacity z-10 pointer-events-none"></div>
-                    <!-- CAMINHO DA FOTO 3 ATUALIZADO PARA A PASTA IMG NO GITHUB -->
                     <img src="img/rosto%203.jpg" alt="Beatriz Anjos" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 relative z-20">
                     <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-wakanda-gold z-30 m-3"></div>
                     <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-wakanda-gold z-30 m-3"></div>
@@ -417,7 +414,7 @@
 
         <!-- Ação de RSVP (Com Faixas Tribais Horizontais) -->
         <section class="text-center mb-20 sm:mb-24 px-2">
-            <div class="glow-vibranium clip-futuristic bg-[#080808] py-12 px-6 sm:p-14 w-full max-w-2xl mx-auto border border-wakanda-vibranium/50 relative overflow-hidden">
+            <div class="glow-vibranium clip-futuristic bg-[#080808] py-12 px-6 sm:p-14 w-full max-w-3xl mx-auto border border-wakanda-vibranium/50 relative overflow-hidden">
                 <!-- Fundo Diamantes Geométricos -->
                 <div class="absolute inset-0 bg-wakanda-diamonds opacity-[0.25] pointer-events-none mix-blend-screen"></div>
                 
@@ -425,17 +422,24 @@
                 <div class="tribal-border-top"></div>
                 <div class="tribal-border-bottom"></div>
                 
-                <h2 class="font-wakanda text-2xl sm:text-3xl text-wakanda-gold mb-3 sm:mb-4 relative z-10 drop-shadow-lg">Confirmar Presença no Ritual</h2>
+                <h2 class="font-wakanda text-2xl sm:text-3xl text-wakanda-gold mb-3 sm:mb-4 relative z-10 drop-shadow-lg">Confirmar Presença na Celebração</h2>
                 <p class="text-gray-300 font-tech text-base sm:text-lg mb-2 relative z-10 drop-shadow-md">
-                    Sua presença é essencial para este ritual.
+                    Sua presença precisa ser confirmada.
                 </p>
                 <p class="text-wakanda-vibranium font-tech font-bold uppercase tracking-widest text-xs sm:text-sm mb-8 relative z-10 drop-shadow-md">
                     "A entrada no Reino só será permitida aos confirmados."
                 </p>
                 
-                <button onclick="openRSVP()" class="clip-btn bg-gradient-to-r from-wakanda-purple to-wakanda-vibranium text-white font-wakanda text-base sm:text-xl py-4 px-6 sm:px-10 w-full sm:w-auto uppercase tracking-wider sm:tracking-widest relative z-10 hover:from-wakanda-vibranium hover:to-[#b84dff] shadow-[0_0_20px_rgba(157,0,255,0.4)]">
-                    Transmitir Resposta
-                </button>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
+                    <button onclick="openRSVP()" class="clip-btn bg-gradient-to-r from-wakanda-purple to-wakanda-vibranium text-white font-wakanda text-base sm:text-xl py-4 px-6 sm:px-10 w-full sm:w-auto uppercase tracking-wider sm:tracking-widest hover:from-wakanda-vibranium hover:to-[#b84dff] shadow-[0_0_20px_rgba(157,0,255,0.4)]">
+                        Confirme a presença
+                    </button>
+                    
+                    <!-- Botão WhatsApp -->
+                    <a href="https://wa.me/5511992543203?text=Oi%20Bia!%20Tenho%20uma%20dúvida%20sobre%20a%20sua%20festa%20de%2018%20anos." target="_blank" class="clip-btn bg-transparent border-2 border-[#25D366] text-[#25D366] font-wakanda text-sm sm:text-base py-4 px-6 w-full sm:w-auto uppercase tracking-wider hover:bg-[#25D366] hover:text-black transition-colors shadow-[0_0_15px_rgba(37,211,102,0.2)] flex items-center justify-center gap-3">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i> Dúvidas? Fale com a Beatriz
+                    </a>
+                </div>
 
                 <!-- Aviso de Entrada / Passaporte -->
                 <div class="mt-8 pt-6 border-t border-wakanda-purple/30 relative z-10">
@@ -468,7 +472,8 @@
 
     <!-- Modal RSVP -->
     <div id="rsvp-modal" class="fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] p-6 sm:p-8 w-full max-w-md relative transform scale-95 transition-transform duration-300 overflow-hidden" id="rsvp-content">
+        <!-- Alteração: flex flex-col e max-h-[90vh] garantem que o modal não passe da tela do celular -->
+        <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] p-6 sm:p-8 w-full max-w-md max-h-[90vh] flex flex-col relative transform scale-95 transition-transform duration-300 overflow-hidden my-auto" id="rsvp-content">
             <!-- Fundo do modal -->
             <div class="absolute inset-0 bg-wakanda-diamonds opacity-10 pointer-events-none"></div>
             
@@ -476,37 +481,50 @@
                 <i class="fa-solid fa-xmark"></i>
             </button>
             
-            <h3 class="font-wakanda text-2xl text-wakanda-gold mb-6 border-b border-wakanda-purple/30 pb-2 relative z-10">Transmissão RSVP</h3>
+            <h3 class="font-wakanda text-2xl text-wakanda-gold mb-4 border-b border-wakanda-purple/30 pb-2 relative z-10 shrink-0">Confirmação de Presença</h3>
             
-            <form id="rsvp-form" class="space-y-4 relative z-10" onsubmit="submitRSVP(event)">
-                <div>
-                    <label class="block font-tech text-sm text-gray-400 uppercase tracking-wider mb-1">Nome de Guerra</label>
-                    <input type="text" required class="w-full bg-[#111] border border-wakanda-purple/50 focus:border-wakanda-vibranium text-white p-3 outline-none font-tech transition-colors clip-futuristic">
+            <form id="rsvp-form" class="flex flex-col flex-1 overflow-hidden relative z-10" onsubmit="submitRSVP(event)">
+                
+                <!-- ÁREA ROLÁVEL: Apenas os inputs dão scroll, o botão fica fixo -->
+                <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4 pb-2">
+                    <div>
+                        <label class="block font-tech text-sm text-gray-400 uppercase tracking-wider mb-1">Nome Completo</label>
+                        <input type="text" required placeholder="Digite seu nome..." class="w-full bg-[#111] border border-wakanda-purple/50 focus:border-wakanda-vibranium text-white p-3 outline-none font-tech transition-colors clip-futuristic">
+                    </div>
+                    
+                    <div>
+                        <label class="block font-tech text-xs sm:text-sm text-gray-400 uppercase tracking-wider mb-1">Quantidade de Acompanhantes</label>
+                        <input type="number" id="num-acompanhantes" min="0" max="6" value="0" class="w-full bg-[#111] border border-wakanda-purple/50 focus:border-wakanda-vibranium text-white p-3 outline-none font-tech clip-futuristic">
+                    </div>
+
+                    <!-- Container onde os campos de nome dos acompanhantes vão aparecer dinamicamente -->
+                    <div id="acompanhantes-container" class="space-y-3 mt-3 empty:hidden"></div>
                 </div>
-                <div>
-                    <label class="block font-tech text-sm text-gray-400 uppercase tracking-wider mb-1">Status</label>
-                    <select class="w-full bg-[#111] border border-wakanda-purple/50 focus:border-wakanda-vibranium text-white p-3 outline-none font-tech appearance-none clip-futuristic">
-                        <option value="sim">Sim, lutarei ao seu lado (Confirmado)</option>
-                        <option value="nao">Não, estou em outra missão (Ausente)</option>
-                    </select>
+
+                <!-- BOTÃO FIXO NA BASE -->
+                <div class="pt-4 mt-2 border-t border-wakanda-purple/30 shrink-0">
+                    <button type="submit" class="w-full clip-btn bg-wakanda-vibranium text-white font-wakanda text-base sm:text-lg py-3 hover:bg-wakanda-purple transition-colors shadow-[0_0_15px_rgba(157,0,255,0.4)]">
+                        Confirmar Presença
+                    </button>
                 </div>
-                <div>
-                    <label class="block font-tech text-xs sm:text-sm text-gray-400 uppercase tracking-wider mb-1">Acompanhantes</label>
-                    <input type="number" min="0" max="5" value="0" class="w-full bg-[#111] border border-wakanda-purple/50 focus:border-wakanda-vibranium text-white p-3 outline-none font-tech clip-futuristic">
-                </div>
-                <button type="submit" class="w-full clip-btn bg-wakanda-vibranium text-white font-wakanda text-base sm:text-lg py-3 mt-4 hover:bg-wakanda-purple transition-colors shadow-[0_0_15px_rgba(157,0,255,0.4)]">
-                    Enviar Mensagem
-                </button>
             </form>
             
-            <div id="rsvp-success" class="hidden text-center py-6 sm:py-8 relative z-10">
+            <!-- Mensagem de Sucesso centralizada -->
+            <div id="rsvp-success" class="hidden flex-col items-center justify-center flex-1 py-6 sm:py-8 relative z-10">
                 <i class="fa-solid fa-check-circle text-4xl sm:text-5xl text-wakanda-gold mb-4"></i>
-                <h4 class="font-wakanda text-lg sm:text-xl text-white">Mensagem Recebida!</h4>
-                <p class="font-tech text-sm sm:text-base text-gray-400 mt-2">Sua presença foi registrada.</p>
-                <button onclick="closeRSVP()" class="mt-6 text-wakanda-vibranium underline font-tech uppercase tracking-wider text-xs sm:text-sm">Fechar Portal</button>
+                <h4 class="font-wakanda text-lg sm:text-xl text-white">Confirmação Recebida!</h4>
+                <p class="font-tech text-sm sm:text-base text-gray-400 mt-2 text-center">Sua presença foi confirmada nos arquivos reais.</p>
+                <button onclick="closeRSVP()" class="mt-8 text-wakanda-vibranium underline font-tech uppercase tracking-wider text-xs sm:text-sm">Fechar Portal</button>
             </div>
         </div>
     </div>
+
+    <style>
+        /* Ajuste do scrollbar do modal caso tenha muitos convidados */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #111; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #9d00ff; border-radius: 4px; }
+    </style>
 
     <!-- Scripts -->
     <script>
@@ -623,6 +641,30 @@
             };
             setInterval(updateCountdown, 1000);
             updateCountdown();
+
+            /* --- CAMPOS DINÂMICOS DE ACOMPANHANTES --- */
+            const numAcompanhantesInput = document.getElementById('num-acompanhantes');
+            const acompanhantesContainer = document.getElementById('acompanhantes-container');
+
+            numAcompanhantesInput.addEventListener('input', (e) => {
+                let count = parseInt(e.target.value) || 0;
+                
+                // Limites de segurança
+                if (count > 6) { count = 6; e.target.value = 6; }
+                if (count < 0) { count = 0; e.target.value = 0; }
+                
+                acompanhantesContainer.innerHTML = ''; // Limpa os campos anteriores
+
+                // Cria os novos campos obrigatórios
+                for(let i = 1; i <= count; i++) {
+                    const div = document.createElement('div');
+                    div.innerHTML = `
+                        <label class="block font-tech text-[10px] sm:text-xs text-wakanda-gold uppercase tracking-wider mb-1">Nome Completo do Acompanhante ${i}</label>
+                        <input type="text" required placeholder="Nome do acompanhante..." class="w-full bg-[#111] border border-wakanda-purple/30 focus:border-wakanda-vibranium text-white p-2 outline-none font-tech clip-futuristic text-sm transition-colors">
+                    `;
+                    acompanhantesContainer.appendChild(div);
+                }
+            });
         });
 
         /* --- LÓGICA DO MODAL RSVP --- */
@@ -640,7 +682,10 @@
             }, 10);
             rsvpForm.classList.remove('hidden');
             rsvpSuccess.classList.add('hidden');
+            
+            // Reseta o formulário e os acompanhantes dinâmicos ao abrir
             rsvpForm.reset();
+            document.getElementById('acompanhantes-container').innerHTML = ''; 
         }
 
         window.closeRSVP = function() {
@@ -654,6 +699,8 @@
 
         window.submitRSVP = function(event) {
             event.preventDefault();
+            // Lógica de envio (que você pode ligar ao Google Sheets, Formspree ou Email)
+            
             rsvpForm.classList.add('hidden');
             rsvpSuccess.classList.remove('hidden');
         }
