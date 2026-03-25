@@ -766,8 +766,8 @@
                     const fileName = i === 17 ? '17%20.jpeg' : `${i}.jpeg`;
                     
                     // Uso de caminho relativo estrito (./) para evitar erros de leitura no GitHub Pages
-                    const imagePath = `./img/roupa/${fileName}`;
-                    const fallbackPath = `./img/roupa/${i === 17 ? '17%20.jpg' : i + '.jpg'}`;
+                    const imagePath = `.roupa/${fileName}`;
+                    const fallbackPath = `.roupa/${i === 17 ? '17%20.jpg' : i + '.jpg'}`;
                     
                     const imgDiv = document.createElement('div');
                     imgDiv.className = 'relative aspect-[3/4] overflow-hidden rounded border border-wakanda-purple/30 group bg-[#111] cursor-pointer';
