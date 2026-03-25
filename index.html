@@ -394,7 +394,7 @@
                 <div class="relative aspect-[3/4] group overflow-hidden p-2 border border-wakanda-purple/50 bg-[#111] clip-futuristic transition-transform duration-500 hover:-translate-y-2">
                     <div class="absolute inset-0 bg-wakanda-diamonds opacity-[0.2] z-0 pointer-events-none"></div>
                     <div class="absolute inset-0 bg-wakanda-vibranium opacity-0 group-hover:opacity-20 transition-opacity z-10 pointer-events-none"></div>
-                    <img src="img/rosto%201.png" alt="Beatriz Anjos" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 relative z-20">
+                    <img src="./img/rosto%201.png" alt="Beatriz Anjos" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 relative z-20">
                     <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-wakanda-gold z-30 m-3"></div>
                     <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-wakanda-gold z-30 m-3"></div>
                 </div>
@@ -402,7 +402,7 @@
                 <div class="relative aspect-[3/4] group overflow-hidden p-2 border border-wakanda-purple/50 bg-[#111] clip-futuristic transition-transform duration-500 hover:-translate-y-2">
                     <div class="absolute inset-0 bg-wakanda-diamonds opacity-[0.2] z-0 pointer-events-none"></div>
                     <div class="absolute inset-0 bg-wakanda-vibranium opacity-0 group-hover:opacity-20 transition-opacity z-10 pointer-events-none"></div>
-                    <img src="img/rosto%202.png" alt="Beatriz Anjos" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 relative z-20">
+                    <img src="./img/rosto%202.png" alt="Beatriz Anjos" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 relative z-20">
                     <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-wakanda-gold z-30 m-3"></div>
                     <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-wakanda-gold z-30 m-3"></div>
                 </div>
@@ -410,7 +410,7 @@
                 <div class="relative aspect-[3/4] group overflow-hidden p-2 border border-wakanda-purple/50 bg-[#111] clip-futuristic transition-transform duration-500 hover:-translate-y-2 sm:col-span-2 md:col-span-1">
                     <div class="absolute inset-0 bg-wakanda-diamonds opacity-[0.2] z-0 pointer-events-none"></div>
                     <div class="absolute inset-0 bg-wakanda-vibranium opacity-0 group-hover:opacity-20 transition-opacity z-10 pointer-events-none"></div>
-                    <img src="img/rosto%203.jpg" alt="Beatriz Anjos" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 relative z-20">
+                    <img src="./img/rosto%203.jpg" alt="Beatriz Anjos" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 relative z-20">
                     <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-wakanda-gold z-30 m-3"></div>
                     <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-wakanda-gold z-30 m-3"></div>
                 </div>
@@ -477,8 +477,8 @@
 
     <!-- Modal RSVP -->
     <div id="rsvp-modal" class="fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <!-- Alteração: flex flex-col e max-h-[90vh] garantem que o modal não passe da tela do celular -->
-        <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] p-6 sm:p-8 w-full max-w-md max-h-[90vh] flex flex-col relative transform scale-95 transition-transform duration-300 overflow-hidden my-auto" id="rsvp-content">
+        <!-- Alteração: flex flex-col e max-h-[85vh] garantem que o modal não passe da tela do celular -->
+        <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] p-6 sm:p-8 w-full max-w-md max-h-[85vh] flex flex-col relative transform scale-95 transition-transform duration-300 overflow-hidden my-auto" id="rsvp-content">
             <!-- Fundo do modal -->
             <div class="absolute inset-0 bg-wakanda-diamonds opacity-10 pointer-events-none"></div>
             
@@ -490,8 +490,8 @@
             
             <form id="rsvp-form" class="flex flex-col flex-1 overflow-hidden relative z-10" onsubmit="submitRSVP(event)">
                 
-                <!-- ÁREA ROLÁVEL: Apenas os inputs dão scroll, o botão fica fixo -->
-                <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4 pb-2">
+                <!-- ÁREA ROLÁVEL: Apenas os inputs dão scroll, o botão fica fixo. overscroll-contain trava o scroll do fundo -->
+                <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4 pb-2 overscroll-contain" style="-webkit-overflow-scrolling: touch;">
                     <div>
                         <label class="block font-tech text-sm text-gray-400 uppercase tracking-wider mb-1">Nome Completo</label>
                         <input type="text" required placeholder="Digite seu nome..." class="w-full bg-[#111] border border-wakanda-purple/50 focus:border-wakanda-vibranium text-white p-3 outline-none font-tech transition-colors clip-futuristic">
@@ -526,7 +526,7 @@
 
     <!-- NOVO: Modal de Referências de Roupas -->
     <div id="references-modal" class="fixed inset-0 z-[70] bg-black/95 backdrop-blur-md hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] p-4 sm:p-8 w-full max-w-4xl max-h-[90vh] flex flex-col relative transform scale-95 transition-transform duration-300 overflow-hidden my-auto" id="references-content">
+        <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] p-4 sm:p-8 w-full max-w-4xl max-h-[85vh] flex flex-col relative transform scale-95 transition-transform duration-300 overflow-hidden my-auto" id="references-content">
             <!-- Fundo do modal -->
             <div class="absolute inset-0 bg-wakanda-diamonds opacity-10 pointer-events-none"></div>
             
@@ -539,7 +539,7 @@
             </h3>
             
             <!-- ÁREA ROLÁVEL DA GALERIA -->
-            <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar relative z-10">
+            <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar relative z-10 overscroll-contain" style="-webkit-overflow-scrolling: touch;">
                 <div id="references-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 pb-4">
                     <!-- As imagens serão injetadas aqui via JavaScript -->
                 </div>
@@ -623,7 +623,7 @@
             const musicControlContainer = document.getElementById('music-control');
             let isMusicPlaying = false;
 
-            // Congela o scroll até abrir
+            // Congela o scroll do site até o usuário abrir o portal
             document.body.style.overflow = 'hidden';
 
             openBtn.addEventListener('click', () => {
@@ -637,7 +637,7 @@
                 }).catch(e => console.log(e));
 
                 setTimeout(() => {
-                    document.body.style.overflowY = 'auto';
+                    document.body.style.overflowY = 'auto'; // Libera a rolagem do site após animação
                 }, 1500);
             });
 
@@ -710,6 +710,7 @@
         const rsvpSuccess = document.getElementById('rsvp-success');
 
         window.openRSVP = function() {
+            document.body.style.overflow = 'hidden'; // Trava o scroll do site no fundo
             rsvpModal.classList.remove('hidden');
             rsvpModal.classList.add('flex');
             setTimeout(() => {
@@ -725,6 +726,7 @@
         }
 
         window.closeRSVP = function() {
+            document.body.style.overflow = 'auto'; // Destrava o scroll do site
             rsvpModal.classList.add('opacity-0');
             rsvpContent.classList.add('scale-95');
             setTimeout(() => {
@@ -748,6 +750,7 @@
         let referencesLoaded = false;
 
         window.openReferences = function() {
+            document.body.style.overflow = 'hidden'; // Trava o scroll do site no fundo
             referencesModal.classList.remove('hidden');
             referencesModal.classList.add('flex');
             setTimeout(() => {
@@ -755,26 +758,31 @@
                 referencesContent.classList.remove('scale-95');
             }, 10);
             
-            // Carrega as imagens dinamicamente apenas na primeira vez que abre (economiza dados do usuário)
+            // Carrega as imagens dinamicamente apenas na primeira vez que abre
             if (!referencesLoaded) {
                 const totalImages = 19;
                 for (let i = 1; i <= totalImages; i++) {
                     // Trata o caso específico do arquivo "17 .jpeg" que tem um espaço no GitHub
                     const fileName = i === 17 ? '17%20.jpeg' : `${i}.jpeg`;
-                    const imagePath = `img/roupa/${fileName}`;
+                    
+                    // Uso de caminho relativo estrito (./) para evitar erros de leitura no GitHub Pages
+                    const imagePath = `./img/roupa/${fileName}`;
+                    const fallbackPath = `./img/roupa/${i === 17 ? '17%20.jpg' : i + '.jpg'}`;
                     
                     const imgDiv = document.createElement('div');
-                    // Adicionado cursor-pointer e o evento onclick para abrir o Lightbox
                     imgDiv.className = 'relative aspect-[3/4] overflow-hidden rounded border border-wakanda-purple/30 group bg-[#111] cursor-pointer';
+                    
+                    // Abre o lightbox garantindo que puxa o caminho que DEU CERTO (seja o original ou o fallback)
                     imgDiv.onclick = function() {
-                        openLightbox(imagePath);
+                        const actualSrc = this.querySelector('img').src;
+                        openLightbox(actualSrc);
                     };
                     
                     imgDiv.innerHTML = `
                         <div class="absolute inset-0 bg-wakanda-vibranium opacity-0 group-hover:opacity-20 transition-opacity z-10 pointer-events-none flex items-center justify-center">
                             <i class="fa-solid fa-expand text-white text-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg"></i>
                         </div>
-                        <img src="${imagePath}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Referência de Look ${i}">
+                        <img src="${imagePath}" onerror="this.onerror=null; this.src='${fallbackPath}';" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Referência de Look ${i}">
                     `;
                     referencesGrid.appendChild(imgDiv);
                 }
@@ -783,6 +791,7 @@
         }
 
         window.closeReferences = function() {
+            document.body.style.overflow = 'auto'; // Destrava o scroll do site
             referencesModal.classList.add('opacity-0');
             referencesContent.classList.add('scale-95');
             setTimeout(() => {
