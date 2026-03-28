@@ -116,7 +116,7 @@
             pointer-events: none;
         }
 
-        /* Formatos UI Wakanda - CORRIGIDO PARA USAR PIXELS FIXOS (evita bugs em telas grandes) */
+        /* Formatos UI Wakanda */
         .clip-futuristic {
             clip-path: polygon(25px 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%, 0 25px);
         }
@@ -177,7 +177,7 @@
             visibility: visible;
         }
 
-        /* Loader Audio */
+        /* Loader Audio & Wishlist Loader */
         .audio-bars { display: flex; align-items: flex-end; height: 15px; gap: 2px; }
         .audio-bars span { width: 3px; background-color: #9d00ff; animation: bounce 1s infinite alternate; }
         .audio-bars span:nth-child(2) { animation-delay: 0.2s; }
@@ -185,11 +185,17 @@
         .audio-bars span:nth-child(4) { animation-delay: 0.6s; }
         @keyframes bounce { 0% { height: 3px; } 100% { height: 15px; } }
         .paused .audio-bars span { animation-play-state: paused; height: 3px; }
+
+        @keyframes spin-slow { 100% { transform: rotate(360deg); } }
+        .animate-spin-slow { animation: spin-slow 3s linear infinite; }
         
         /* Ajuste do scrollbar dos modais */
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #9d00ff; border-radius: 4px; }
+
+        /* Esconder Elementos */
+        .hidden-panel { display: none !important; }
     </style>
 </head>
 <body class="bg-wakanda-dark font-tech antialiased min-h-screen flex flex-col items-center">
@@ -199,7 +205,7 @@
     </audio>
 
     <!-- TELA DE ENTRADA (O PORTAL COM A DIGITAL) -->
-    <div id="portal-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#020202] overflow-hidden">
+    <div id="portal-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#020202] overflow-hidden transition-all duration-[1200ms] ease-in-out">
         <div class="absolute inset-0 bg-wakanda-diamonds opacity-[0.08]"></div>
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[600px] sm:h-[600px] bg-wakanda-vibranium rounded-full blur-[100px] sm:blur-[150px] opacity-20 pointer-events-none"></div>
         
@@ -220,7 +226,7 @@
     </div>
 
     <!-- CONTEÚDO PRINCIPAL (O PASSAPORTE) -->
-    <main id="main-content" class="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative bg-pattern min-h-screen flex flex-col overflow-x-hidden">
+    <main id="main-content" class="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative bg-pattern min-h-screen flex flex-col overflow-x-hidden opacity-0 scale-95 transition-all duration-[1500ms] ease-in-out h-0 invisible">
         
         <!-- Header / Título Wakanda Forever -->
         <header class="text-center mb-10 sm:mb-14 relative pt-8 sm:pt-10">
@@ -407,35 +413,43 @@
             </div>
         </section>
 
-        <!-- Ação de RSVP -->
+        <!-- Ação de RSVP & Presentes -->
         <section class="text-center mb-20 sm:mb-24 px-2">
-            <div class="glow-vibranium clip-futuristic bg-[#080808] py-12 px-6 sm:p-14 w-full max-w-3xl mx-auto border border-wakanda-vibranium/50 relative overflow-hidden">
+            <div class="glow-vibranium clip-futuristic bg-[#080808] py-12 px-6 sm:p-14 w-full max-w-4xl mx-auto border border-wakanda-vibranium/50 relative overflow-hidden">
                 <div class="absolute inset-0 bg-wakanda-diamonds opacity-[0.25] pointer-events-none mix-blend-screen"></div>
                 <div class="tribal-border-top"></div>
                 <div class="tribal-border-bottom"></div>
                 
-                <h2 class="font-wakanda text-2xl sm:text-3xl text-wakanda-gold mb-3 sm:mb-4 relative z-10 drop-shadow-lg">Confirmar Presença na Celebração</h2>
+                <h2 class="font-wakanda text-2xl sm:text-3xl text-wakanda-gold mb-3 sm:mb-4 relative z-10 drop-shadow-lg">Acesso ao Reino</h2>
                 <p class="text-gray-300 font-tech text-base sm:text-lg mb-2 relative z-10 drop-shadow-md">
-                    Sua presença precisa ser confirmada.
+                    Sua presença e contribuição celebram a nossa nova Rainha.
                 </p>
                 <p class="text-wakanda-vibranium font-tech font-bold uppercase tracking-widest text-xs sm:text-sm mb-8 relative z-10 drop-shadow-md">
-                    "A entrada no Reino só será permitida aos confirmados."
+                    "A entrada só será permitida aos confirmados nos arquivos reais."
                 </p>
                 
+                <!-- BOTOES DE AÇÃO -->
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
                     <button onclick="openRSVP()" class="clip-btn bg-gradient-to-r from-wakanda-purple to-wakanda-vibranium text-white font-wakanda text-base sm:text-xl py-4 px-6 sm:px-10 w-full sm:w-auto uppercase tracking-wider sm:tracking-widest hover:from-wakanda-vibranium hover:to-[#b84dff] shadow-[0_0_20px_rgba(157,0,255,0.4)]">
-                        Confirme a presença
+                        <i class="fa-solid fa-fingerprint mr-2"></i> Confirmar Presença
                     </button>
                     
-                    <a href="https://wa.me/5511992543203?text=Oi%20Bia!%20Tenho%20uma%20dúvida%20sobre%20a%20sua%20festa%20de%2018%20anos." target="_blank" class="clip-btn bg-transparent border-2 border-[#25D366] text-[#25D366] font-wakanda text-sm sm:text-base py-4 px-6 w-full sm:w-auto uppercase tracking-wider hover:bg-[#25D366] hover:text-black transition-colors shadow-[0_0_15px_rgba(37,211,102,0.2)] flex items-center justify-center gap-3">
-                        <i class="fa-brands fa-whatsapp text-2xl"></i> Dúvidas? Fale com a Beatriz
+                    <!-- NOVO BOTAO PRESENTES -->
+                    <button onclick="openGifts()" class="clip-btn bg-gradient-to-r from-yellow-600 to-yellow-400 text-wakanda-darker font-wakanda text-base sm:text-xl py-4 px-6 sm:px-10 w-full sm:w-auto uppercase tracking-wider sm:tracking-widest hover:from-yellow-400 hover:to-yellow-300 shadow-[0_0_20px_rgba(255,215,0,0.4)] transition-all font-bold">
+                        <i class="fa-solid fa-gift mr-2"></i> Presentes para a Realeza
+                    </button>
+                </div>
+
+                <div class="mt-6 flex items-center justify-center relative z-10">
+                    <a href="https://wa.me/5511992543203?text=Oi%20Bia!%20Tenho%20uma%20dúvida%20sobre%20a%20sua%20festa%20de%2018%20anos." target="_blank" class="clip-btn bg-transparent border-2 border-[#25D366] text-[#25D366] font-wakanda text-sm sm:text-base py-3 px-6 w-full sm:w-auto uppercase tracking-wider hover:bg-[#25D366] hover:text-black transition-colors shadow-[0_0_15px_rgba(37,211,102,0.2)] flex items-center justify-center gap-3">
+                        <i class="fa-brands fa-whatsapp text-xl"></i> Dúvidas? Fale com a Beatriz
                     </a>
                 </div>
 
                 <div class="mt-8 pt-6 border-t border-wakanda-purple/30 relative z-10">
                     <p class="font-tech text-gray-400 text-xs sm:text-sm">
                         <i class="fa-solid fa-triangle-exclamation text-wakanda-gold mr-2"></i>
-                        Apresente este passaporte (convite) na entrada para acessar Wakanda. Sem este documento, sua entrada não será autorizada.
+                        Apresente este passaporte (convite) na entrada para acessar Wakanda.
                     </p>
                 </div>
             </div>
@@ -461,23 +475,20 @@
     </div>
 
     <!-- ============================================== -->
-    <!-- MODAL RSVP REESTRUTURADO (CENTRALIZADO PERFEITO) -->
+    <!-- MODAL RSVP (CENTRALIZADO)                      -->
     <!-- ============================================== -->
     <div id="rsvp-modal" class="fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm hidden flex-col items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300">
         <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] w-full max-w-md max-h-[90vh] flex flex-col relative transform scale-95 transition-transform duration-300" id="rsvp-content">
             <div class="absolute inset-0 bg-wakanda-diamonds opacity-10 pointer-events-none z-0"></div>
             
-            <!-- Botão Fechar -->
             <button onclick="closeRSVP()" class="absolute top-4 right-5 text-gray-400 hover:text-wakanda-vibranium text-2xl transition-colors z-30">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <!-- Cabeçalho Fixo -->
             <div class="px-6 pt-6 pb-4 border-b border-wakanda-purple/30 relative z-20 shrink-0">
                 <h3 class="font-wakanda text-xl sm:text-2xl text-wakanda-gold pr-8">Confirmação de Presença</h3>
             </div>
             
-            <!-- Corpo Rolável (Scroll) -->
             <div class="px-6 py-4 overflow-y-auto custom-scrollbar relative z-10 flex-1">
                 <form id="rsvp-form" class="space-y-4" onsubmit="submitRSVP(event)">
                     <div>
@@ -485,7 +496,6 @@
                         <input type="text" id="nome" name="nome" required placeholder="Digite seu nome..." class="w-full bg-[#111] border border-wakanda-purple/50 focus:border-wakanda-vibranium text-white p-3 outline-none font-tech transition-colors clip-futuristic">
                     </div>
                     
-                    <!-- NOVO CAMPO: CELULAR -->
                     <div>
                         <label class="block font-tech text-sm text-gray-400 uppercase tracking-wider mb-1">Celular / WhatsApp</label>
                         <input type="tel" id="celular" name="celular" required placeholder="(11) 99999-9999" class="w-full bg-[#111] border border-wakanda-purple/50 focus:border-wakanda-vibranium text-white p-3 outline-none font-tech transition-colors clip-futuristic">
@@ -498,7 +508,6 @@
                     <div id="acompanhantes-container" class="space-y-3 mt-3 empty:hidden pb-2"></div>
                 </form>
                 
-                <!-- Mensagem de Sucesso -->
                 <div id="rsvp-success" class="hidden flex-col items-center justify-center py-8 text-center">
                     <i class="fa-solid fa-check-circle text-5xl text-wakanda-gold mb-4"></i>
                     <h4 class="font-wakanda text-xl text-white">Confirmação Recebida!</h4>
@@ -506,7 +515,6 @@
                 </div>
             </div>
 
-            <!-- Rodapé Fixo (Botão) -->
             <div id="rsvp-footer" class="px-6 pb-6 pt-4 border-t border-wakanda-purple/30 relative z-20 shrink-0">
                 <button type="submit" id="submit-btn" form="rsvp-form" class="w-full clip-btn bg-wakanda-vibranium text-white font-wakanda text-lg py-3 hover:bg-wakanda-purple transition-colors shadow-[0_0_15px_rgba(157,0,255,0.4)]">
                     Confirmar Presença
@@ -516,25 +524,22 @@
     </div>
 
     <!-- ============================================== -->
-    <!-- MODAL DE REFERÊNCIAS REESTRUTURADO             -->
+    <!-- MODAL DE REFERÊNCIAS                           -->
     <!-- ============================================== -->
     <div id="references-modal" class="fixed inset-0 z-[70] bg-black/95 backdrop-blur-md hidden flex-col items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300">
         <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] w-full max-w-5xl max-h-[90vh] flex flex-col relative transform scale-95 transition-transform duration-300" id="references-content">
             <div class="absolute inset-0 bg-wakanda-diamonds opacity-10 pointer-events-none z-0"></div>
             
-            <!-- Botão Fechar -->
             <button onclick="closeReferences()" class="absolute top-4 right-5 text-gray-400 hover:text-wakanda-vibranium text-2xl sm:text-3xl transition-colors z-30 w-10 h-10 flex items-center justify-center bg-black/50 rounded-full">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <!-- Cabeçalho Fixo -->
             <div class="px-5 sm:px-8 pt-6 pb-4 border-b border-wakanda-purple/30 relative z-20 shrink-0">
                 <h3 class="font-wakanda text-xl sm:text-2xl text-wakanda-gold pr-10 flex items-center">
                     <i class="fa-solid fa-crown mr-3 text-wakanda-vibranium"></i> Inspirações Elegance
                 </h3>
             </div>
             
-            <!-- Corpo Rolável (Grid de Imagens) -->
             <div class="p-5 sm:p-8 overflow-y-auto custom-scrollbar relative z-10 flex-1">
                 <div id="references-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 pb-4">
                     <!-- As imagens serão injetadas aqui via JavaScript -->
@@ -543,7 +548,7 @@
         </div>
     </div>
 
-    <!-- NOVO: Lightbox para ampliar a imagem clicada -->
+    <!-- LIGHTBOX (AMPLIAR FOTO) -->
     <div id="lightbox-modal" class="fixed inset-0 z-[80] bg-black/95 backdrop-blur-lg hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300 cursor-pointer" onclick="closeLightbox()">
         <button class="absolute top-4 right-4 sm:top-6 sm:right-8 text-gray-400 hover:text-wakanda-vibranium text-3xl transition-colors z-20 bg-black/50 w-12 h-12 rounded-full flex items-center justify-center">
             <i class="fa-solid fa-xmark"></i>
@@ -551,9 +556,142 @@
         <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-[0_0_40px_rgba(157,0,255,0.4)] transform scale-95 transition-transform duration-300 relative z-10" alt="Referência Ampliada" onclick="event.stopPropagation();">
     </div>
 
+    <!-- ============================================== -->
+    <!-- NOVO MODAL DE PRESENTES (CENTRALIZADO)         -->
+    <!-- ============================================== -->
+    <div id="gifts-modal" class="fixed inset-0 z-[65] bg-black/90 backdrop-blur-sm hidden flex-col items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300">
+        <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] w-full max-w-2xl max-h-[90vh] flex flex-col relative transform scale-95 transition-transform duration-300" id="gifts-content">
+            <div class="absolute inset-0 bg-wakanda-diamonds opacity-10 pointer-events-none z-0"></div>
+            
+            <!-- Botão Fechar -->
+            <button onclick="closeGifts()" class="absolute top-4 right-5 text-gray-400 hover:text-wakanda-vibranium text-2xl transition-colors z-30 w-10 h-10 flex items-center justify-center bg-black/50 rounded-full">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Cabeçalho Dinâmico -->
+            <div class="px-5 sm:px-8 pt-6 pb-4 border-b border-wakanda-purple/30 relative z-20 shrink-0 flex items-center justify-between">
+                <h3 id="gifts-title" class="font-wakanda text-xl sm:text-2xl text-wakanda-gold pr-10 flex items-center drop-shadow-md">
+                    <i class="fa-solid fa-gift mr-3 text-wakanda-vibranium"></i> Como Presentear a Realeza?
+                </h3>
+                <button id="btn-voltar-presentes" onclick="showGiftsMenu()" class="hidden-panel text-gray-400 hover:text-white font-tech uppercase tracking-wider text-xs sm:text-sm mr-12 transition-colors">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Voltar
+                </button>
+            </div>
+            
+            <!-- Corpo Rolável -->
+            <div class="p-5 sm:p-8 overflow-y-auto custom-scrollbar relative z-10 flex-1">
+                
+                <!-- TELA 1: MENU DE OPÇÕES -->
+                <div id="gifts-menu" class="flex flex-col gap-6">
+                    <button onclick="showPixView()" class="clip-futuristic relative group bg-[#111] hover:bg-[#1a1a1a] border border-wakanda-purple/50 hover:border-wakanda-vibranium p-6 sm:p-8 transition-all duration-300 text-left overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-wakanda-purple/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="flex items-center gap-4 relative z-10">
+                            <div class="w-14 h-14 rounded-full bg-wakanda-purple/20 flex items-center justify-center text-wakanda-vibranium group-hover:scale-110 transition-transform">
+                                <i class="fa-brands fa-pix text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-wakanda text-lg sm:text-xl text-white group-hover:text-wakanda-gold transition-colors">Vibranium para a Beatriz</h4>
+                                <p class="font-tech text-gray-400 text-sm sm:text-base mt-1">Contribua com qualquer valor (PIX) para os projetos da nova Rainha.</p>
+                            </div>
+                        </div>
+                    </button>
+
+                    <button onclick="showWishlistView()" class="clip-futuristic relative group bg-[#111] hover:bg-[#1a1a1a] border border-yellow-600/50 hover:border-yellow-400 p-6 sm:p-8 transition-all duration-300 text-left overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-yellow-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="flex items-center gap-4 relative z-10">
+                            <div class="w-14 h-14 rounded-full bg-yellow-600/20 flex items-center justify-center text-yellow-500 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-list-check text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-wakanda text-lg sm:text-xl text-white group-hover:text-yellow-400 transition-colors">Wakanda Wishlist</h4>
+                                <p class="font-tech text-gray-400 text-sm sm:text-base mt-1">Escolha um item especial na lista oficial de presentes disponíveis.</p>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- TELA 2: PIX -->
+                <div id="gifts-pix" class="hidden-panel flex-col items-center text-center">
+                    <p class="font-tech text-gray-300 mb-6 text-sm sm:text-base max-w-md mx-auto">
+                        "Sua contribuição ajudará a construir o futuro de Wakanda!" <br>Escaneie o QR Code ou copie a chave abaixo.
+                    </p>
+                    
+                    <div class="bg-white p-3 rounded-lg shadow-[0_0_20px_rgba(157,0,255,0.4)] mb-6 inline-block">
+                        <img src="./img/qrcode.png" alt="QR Code PIX" class="w-48 h-48 object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200.png?text=SEU+QR+CODE+AQUI';">
+                    </div>
+
+                    <div class="w-full max-w-sm mx-auto bg-[#111] border border-wakanda-purple/50 p-4 clip-futuristic relative">
+                        <p class="font-tech text-xs text-wakanda-vibranium uppercase tracking-widest mb-1">Chave PIX Copia e Cola</p>
+                        <p id="pix-key-text" class="font-tech text-lg text-white font-bold select-all break-all text-center">00020101021126330014br.gov.bcb.pix0111549635368895204000053039865802BR5921BEATRIZ C S DOS ANJOS6006OSASCO62070503***63045F7B</p>
+                    </div>
+
+                    <button onclick="copyPixKey()" class="mt-6 clip-btn bg-wakanda-purple hover:bg-wakanda-vibranium text-white font-wakanda text-sm sm:text-base py-3 px-8 uppercase tracking-wider transition-colors shadow-lg">
+                        <i class="fa-regular fa-copy mr-2"></i> Copiar Chave PIX
+                    </button>
+                    <p id="pix-copy-msg" class="text-green-400 font-tech mt-3 text-sm opacity-0 transition-opacity">Chave copiada com sucesso!</p>
+                </div>
+
+                <!-- TELA 3: WISHLIST (Puxada do Google Sheets) -->
+                <div id="gifts-wishlist" class="hidden-panel flex-col">
+                    <p class="font-tech text-gray-300 mb-6 text-sm sm:text-base text-center">
+                        Veja os presentes que a Beatriz gostaria de ganhar. Clique em "Reservar" para avisarmos que este presente já tem dono!
+                    </p>
+
+                    <!-- Loader da Wishlist -->
+                    <div id="wishlist-loader" class="flex flex-col items-center justify-center py-10">
+                        <div class="w-12 h-12 border-4 border-wakanda-purple border-t-wakanda-vibranium rounded-full animate-spin mb-4"></div>
+                        <p class="font-tech text-wakanda-vibranium tracking-widest uppercase animate-pulse">Acedendo aos Arquivos Reais...</p>
+                    </div>
+
+                    <!-- Grid de Presentes -->
+                    <div id="wishlist-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 hidden-panel">
+                        <!-- Itens injetados via JS -->
+                    </div>
+                </div>
+
+                <!-- TELA 4: FORMULÁRIO DE RESERVA DE PRESENTE -->
+                <div id="gifts-reserve" class="hidden-panel flex-col items-center max-w-md mx-auto w-full">
+                    <div class="w-16 h-16 rounded-full bg-yellow-600/20 flex items-center justify-center text-yellow-500 mb-4 border border-yellow-600/50">
+                        <i class="fa-solid fa-hand-holding-heart text-2xl"></i>
+                    </div>
+                    <h4 class="font-wakanda text-xl text-white text-center mb-2">Reservar Presente</h4>
+                    <p id="reserve-item-name" class="font-tech text-yellow-500 text-lg text-center mb-6 font-bold">Nome do Item Aqui</p>
+
+                    <form id="reserve-form" class="w-full space-y-4" onsubmit="submitReservation(event)">
+                        <input type="hidden" id="reserve-item-id">
+                        <div>
+                            <label class="block font-tech text-sm text-gray-400 uppercase tracking-wider mb-1">Seu Nome Completo</label>
+                            <input type="text" id="reserve-nome" required placeholder="Quem vai dar o presente?" class="w-full bg-[#111] border border-wakanda-purple/50 focus:border-wakanda-vibranium text-white p-3 outline-none font-tech transition-colors clip-futuristic">
+                        </div>
+                        <button type="submit" id="submit-reserve-btn" class="w-full clip-btn bg-yellow-600 hover:bg-yellow-500 text-wakanda-darker font-bold font-wakanda text-sm sm:text-base py-3 px-8 uppercase tracking-wider transition-colors shadow-lg mt-4">
+                            Confirmar Reserva
+                        </button>
+                    </form>
+
+                    <!-- Mensagem de Sucesso da Reserva -->
+                    <div id="reserve-success" class="hidden flex-col items-center justify-center py-6 text-center w-full">
+                        <i class="fa-solid fa-check-circle text-5xl text-green-500 mb-4"></i>
+                        <h4 class="font-wakanda text-xl text-white">Presente Reservado!</h4>
+                        <p class="font-tech text-gray-400 mt-2">A Rainha agradece a sua generosidade.</p>
+                        <button onclick="showWishlistView()" class="mt-6 text-wakanda-vibranium underline font-tech uppercase tracking-wider text-xs sm:text-sm">Voltar para a Lista</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script>
+        // =========================================================
+        // LINKS DO GOOGLE APPS SCRIPT (RSVP E PRESENTES)
+        // =========================================================
+        const SCRIPT_URL_PRESENTES = 'https://script.google.com/macros/s/AKfycbzBunliUU_WkR7Vikb9OjgDnVMF-1rLrCQtO-BMSFIO7g7tR3h9z1so30PE8862zm1x/exec'; 
+        const SCRIPT_URL_RSVP = 'https://script.google.com/macros/s/AKfycbytZuEhBMu5PT8yhX0UedJtUrCQccl-6Iq-c5jG78aL5kkwYwwp9lWJhc8wiUCgyJCdJg/exec';
+
         document.addEventListener('DOMContentLoaded', () => {
+            // Remove a tela de carregamento após a página estar pronta
+            const mainContent = document.getElementById('main-content');
             
             /* --- FUNÇÃO PARA CRIAR A FONTE COM SÍMBOLOS INTERNOS --- */
             const runeMap = {
@@ -573,7 +711,6 @@
                     const wordDiv = document.createElement('div');
                     wordDiv.className = 'flex mr-2 sm:mr-4 mb-1 sm:mb-2'; 
                     
-                    // Remover acentos para pegar o símbolo rúnico correto
                     const removeAccents = (str) => {
                         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                     };
@@ -592,7 +729,7 @@
                             const span = document.createElement('span');
                             span.className = 'wakanda-char mx-[0.5px] sm:mx-[1px]'; 
                             span.setAttribute('data-rune', rune);
-                            span.innerText = originalUpperChar; // Mostra a letra original com acento se tiver
+                            span.innerText = originalUpperChar; 
                             wordDiv.appendChild(span);
                         }
                     }
@@ -600,21 +737,27 @@
                 });
             }
 
-            // Renderiza os títulos
             renderWakandaText('RITUAL DE ASCENSÃO', 'title-line1');
             renderWakandaText('COROAÇÃO DA RAINHA BEATRIZ', 'title-line2');
             
-            /* --- LÓGICA DO PORTAL (ABERTURA COM A DIGITAL) --- */
+            /* --- LÓGICA DO PORTAL --- */
             const openBtn = document.getElementById('open-portal-btn');
             const bgMusic = document.getElementById('bg-music');
             const musicControl = document.getElementById('toggle-music');
             const musicControlContainer = document.getElementById('music-control');
+            const portalScreen = document.getElementById('portal-screen');
             let isMusicPlaying = false;
 
             document.body.style.overflow = 'hidden';
 
             openBtn.addEventListener('click', () => {
-                document.body.classList.add('portal-open');
+                // Efeito de dissolver o portal
+                portalScreen.style.opacity = '0';
+                portalScreen.style.transform = 'scale(1.5)';
+                portalScreen.style.pointerEvents = 'none';
+                
+                // Mostrar o conteúdo principal
+                mainContent.classList.remove('invisible', 'opacity-0', 'scale-95', 'h-0');
                 
                 bgMusic.volume = 0.4;
                 bgMusic.play().then(() => {
@@ -625,7 +768,8 @@
 
                 setTimeout(() => {
                     document.body.style.overflowY = 'auto'; 
-                }, 1500);
+                    portalScreen.style.display = 'none'; // Esconde para não atrapalhar clicks
+                }, 1200);
             });
 
             musicControl.addEventListener('click', () => {
@@ -664,7 +808,7 @@
             setInterval(updateCountdown, 1000);
             updateCountdown();
 
-            /* --- CAMPOS DINÂMICOS DE ACOMPANHANTES --- */
+            /* --- CAMPOS DINÂMICOS DE ACOMPANHANTES (RSVP) --- */
             const numAcompanhantesInput = document.getElementById('num-acompanhantes');
             const acompanhantesContainer = document.getElementById('acompanhantes-container');
 
@@ -679,7 +823,6 @@
                     const div = document.createElement('div');
                     div.innerHTML = `
                         <label class="block font-tech text-[10px] sm:text-xs text-wakanda-gold uppercase tracking-wider mb-1">Nome Completo do Acompanhante ${i}</label>
-                        <!-- Adicionada a classe 'guest-input' para capturarmos os valores no envio -->
                         <input type="text" required placeholder="Nome do acompanhante..." class="guest-input w-full bg-[#111] border border-wakanda-purple/30 focus:border-wakanda-vibranium text-white p-2 outline-none font-tech clip-futuristic text-sm transition-colors">
                     `;
                     acompanhantesContainer.appendChild(div);
@@ -687,7 +830,9 @@
             });
         });
 
-        /* --- LÓGICA DO MODAL RSVP E ENVIO PARA GOOGLE SHEETS --- */
+        /* ========================================================= */
+        /* MODAL RSVP E ENVIO PARA GOOGLE SHEETS                     */
+        /* ========================================================= */
         const rsvpModal = document.getElementById('rsvp-modal');
         const rsvpContent = document.getElementById('rsvp-content');
         const rsvpForm = document.getElementById('rsvp-form');
@@ -703,18 +848,14 @@
                 rsvpContent.classList.remove('scale-95');
             }, 10);
             
-            // Restaura visibilidade do form e footer
             rsvpForm.classList.remove('hidden');
             rsvpFooter.classList.remove('hidden');
-            
-            // Oculta a mensagem de sucesso
             rsvpSuccess.classList.add('hidden');
             rsvpSuccess.classList.remove('flex');
             
             rsvpForm.reset();
             document.getElementById('acompanhantes-container').innerHTML = ''; 
             
-            // Restaura o botão
             const btn = document.getElementById('submit-btn');
             btn.innerText = 'Confirmar Presença';
             btn.disabled = false;
@@ -734,33 +875,26 @@
             event.preventDefault();
             
             const btn = document.getElementById('submit-btn');
-            btn.innerText = 'Transmitindo para Wakanda...';
+            btn.innerText = 'Transmitindo...';
             btn.disabled = true;
 
-            // Pega os valores principais
             const nome = document.getElementById('nome').value;
             const celular = document.getElementById('celular').value;
             const numAcompanhantes = parseInt(document.getElementById('num-acompanhantes').value) || 0;
 
-            // Pega os nomes de todos os acompanhantes
             const guestInputs = document.querySelectorAll('.guest-input');
             let acompanhantes = [];
             guestInputs.forEach(input => {
                 if(input.value.trim() !== '') acompanhantes.push(input.value.trim());
             });
 
-            // CORREÇÃO AQUI: Usar URLSearchParams e JSON.stringify para criar múltiplas linhas
             const data = new URLSearchParams();
             data.append('nome', nome);
             data.append('celular', celular);
-            data.append('acompanhantes', JSON.stringify(acompanhantes)); // Formato para o Google separar
+            data.append('acompanhantes', JSON.stringify(acompanhantes)); 
             data.append('total_pessoas', numAcompanhantes + 1); 
 
-            // URL do Google Apps Script (Link Atualizado)
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytZuEhBMu5PT8yhX0UedJtUrCQccl-6Iq-c5jG78aL5kkwYwwp9lWJhc8wiUCgyJCdJg/exec'; 
-
-            // Envia para a planilha com mode: 'no-cors' para ultrapassar bloqueio de segurança
-            fetch(SCRIPT_URL, { method: 'POST', body: data, mode: 'no-cors' })
+            fetch(SCRIPT_URL_RSVP, { method: 'POST', body: data, mode: 'no-cors' })
                 .then(response => {
                     rsvpForm.classList.add('hidden');
                     rsvpFooter.classList.add('hidden');
@@ -775,7 +909,254 @@
                 });
         }
 
-        /* --- LÓGICA DA GALERIA DE REFERÊNCIAS --- */
+        /* ========================================================= */
+        /* MODAL DE PRESENTES E INTEGRAÇÃO (PIX E WISHLIST)          */
+        /* ========================================================= */
+        const giftsModal = document.getElementById('gifts-modal');
+        const giftsContent = document.getElementById('gifts-content');
+        
+        const giftsTitle = document.getElementById('gifts-title');
+        const btnVoltarPresentes = document.getElementById('btn-voltar-presentes');
+        
+        const viewMenu = document.getElementById('gifts-menu');
+        const viewPix = document.getElementById('gifts-pix');
+        const viewWishlist = document.getElementById('gifts-wishlist');
+        const viewReserve = document.getElementById('gifts-reserve');
+        
+        // Wishlist Elements
+        const wishlistLoader = document.getElementById('wishlist-loader');
+        const wishlistGrid = document.getElementById('wishlist-grid');
+        let wishlistCached = false; // Evita recarregar a cada clique se já puxou
+
+        window.openGifts = function() {
+            document.body.style.overflow = 'hidden'; 
+            giftsModal.classList.remove('hidden');
+            giftsModal.classList.add('flex');
+            setTimeout(() => {
+                giftsModal.classList.remove('opacity-0');
+                giftsContent.classList.remove('scale-95');
+            }, 10);
+            
+            showGiftsMenu(); // Garante que abre na tela de menu
+        }
+
+        window.closeGifts = function() {
+            document.body.style.overflow = 'auto'; 
+            giftsModal.classList.add('opacity-0');
+            giftsContent.classList.add('scale-95');
+            setTimeout(() => {
+                giftsModal.classList.add('hidden');
+                giftsModal.classList.remove('flex');
+            }, 300);
+        }
+
+        // Navegação dentro do Modal de Presentes
+        window.showGiftsMenu = function() {
+            giftsTitle.innerHTML = '<i class="fa-solid fa-gift mr-3 text-wakanda-vibranium"></i> Como Presentear a Realeza?';
+            btnVoltarPresentes.classList.add('hidden-panel');
+            
+            viewMenu.classList.remove('hidden-panel');
+            viewPix.classList.add('hidden-panel');
+            viewWishlist.classList.add('hidden-panel');
+            viewReserve.classList.add('hidden-panel');
+        }
+
+        window.showPixView = function() {
+            giftsTitle.innerHTML = '<i class="fa-brands fa-pix mr-3 text-wakanda-vibranium"></i> Vibranium (PIX)';
+            btnVoltarPresentes.classList.remove('hidden-panel');
+            btnVoltarPresentes.setAttribute('onclick', 'showGiftsMenu()');
+            
+            viewMenu.classList.add('hidden-panel');
+            viewPix.classList.remove('hidden-panel');
+            viewPix.classList.add('flex');
+            viewWishlist.classList.add('hidden-panel');
+            viewReserve.classList.add('hidden-panel');
+        }
+
+        window.copyPixKey = function() {
+            const keyText = document.getElementById('pix-key-text').innerText;
+            navigator.clipboard.writeText(keyText).then(() => {
+                const msg = document.getElementById('pix-copy-msg');
+                msg.classList.remove('opacity-0');
+                setTimeout(() => msg.classList.add('opacity-0'), 2500);
+            });
+        }
+
+        // ================= WAKANDA WISHLIST =================
+        window.showWishlistView = function() {
+            giftsTitle.innerHTML = '<i class="fa-solid fa-list-check mr-3 text-yellow-500"></i> Wakanda Wishlist';
+            btnVoltarPresentes.classList.remove('hidden-panel');
+            btnVoltarPresentes.setAttribute('onclick', 'showGiftsMenu()');
+            
+            viewMenu.classList.add('hidden-panel');
+            viewPix.classList.add('hidden-panel');
+            viewWishlist.classList.remove('hidden-panel');
+            viewWishlist.classList.add('flex');
+            viewReserve.classList.add('hidden-panel');
+
+            // Limpa o formulário de reserva caso esteja visível
+            document.getElementById('reserve-form').classList.remove('hidden');
+            document.getElementById('reserve-success').classList.add('hidden');
+            document.getElementById('reserve-success').classList.remove('flex');
+
+            if (!wishlistCached && SCRIPT_URL_PRESENTES !== 'COLE_AQUI_O_SEU_LINK_DE_PRESENTES') {
+                loadWishlistData();
+            } else if (SCRIPT_URL_PRESENTES === 'COLE_AQUI_O_SEU_LINK_DE_PRESENTES') {
+                // Dados de Exemplo para visualização se não tiver link
+                renderMockGifts();
+            }
+        }
+
+        function loadWishlistData() {
+            wishlistLoader.classList.remove('hidden-panel');
+            wishlistGrid.classList.add('hidden-panel');
+            
+            // Faz requisição GET para pegar presentes disponíveis
+            fetch(SCRIPT_URL_PRESENTES + "?action=getGifts")
+                .then(response => response.json())
+                .then(data => {
+                    renderGifts(data);
+                    wishlistCached = true;
+                    wishlistLoader.classList.add('hidden-panel');
+                    wishlistGrid.classList.remove('hidden-panel');
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar wishlist', error);
+                    wishlistLoader.innerHTML = '<p class="text-red-500 font-tech">Falha na comunicação. Tente novamente mais tarde.</p>';
+                });
+        }
+
+        function renderGifts(gifts) {
+            wishlistGrid.innerHTML = '';
+            
+            if (gifts.length === 0) {
+                wishlistGrid.innerHTML = '<div class="col-span-2 text-center text-gray-400 font-tech py-6">Nenhum presente disponível no momento.</div>';
+                return;
+            }
+
+            gifts.forEach(gift => {
+                // Pular se já estiver reservado
+                if (gift.status && gift.status.toLowerCase() === 'reservado') return;
+
+                const card = document.createElement('div');
+                card.className = 'bg-[#111] border border-yellow-600/30 p-4 clip-futuristic flex flex-col justify-between group hover:border-yellow-500 transition-colors';
+                
+                let linkBtn = '';
+                if (gift.link && gift.link.trim() !== '') {
+                    linkBtn = `<a href="${gift.link}" target="_blank" class="text-xs font-tech text-gray-400 hover:text-white underline mt-2 block w-max"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Ver Sugestão</a>`;
+                }
+
+                card.innerHTML = `
+                    <div>
+                        <h5 class="font-wakanda text-white text-lg group-hover:text-yellow-400 transition-colors">${gift.presente}</h5>
+                        <p class="font-tech text-gray-400 text-xs sm:text-sm mt-1">${gift.descricao || ''}</p>
+                        ${linkBtn}
+                    </div>
+                    <button onclick="openReserveView('${gift.id}', '${gift.presente.replace(/'/g, "\\'")}')" class="mt-4 w-full bg-yellow-600/20 hover:bg-yellow-600 text-yellow-500 hover:text-wakanda-darker border border-yellow-600/50 font-tech font-bold uppercase tracking-wider text-xs py-2 clip-btn transition-colors">
+                        Reservar Presente
+                    </button>
+                `;
+                wishlistGrid.appendChild(card);
+            });
+            
+            // Se após filtrar os reservados não sobrar nada:
+            if (wishlistGrid.innerHTML === '') {
+                wishlistGrid.innerHTML = '<div class="col-span-2 text-center text-gray-400 font-tech py-6">A Rainha já recebeu todos os presentes desta lista! <br>Mas você ainda pode usar a opção de PIX.</div>';
+            }
+        }
+
+        // ================= RESERVAR PRESENTE =================
+        window.openReserveView = function(id, name) {
+            giftsTitle.innerHTML = '<i class="fa-solid fa-lock mr-3 text-yellow-500"></i> Confirmar Presente';
+            btnVoltarPresentes.setAttribute('onclick', 'showWishlistView()');
+            
+            viewWishlist.classList.add('hidden-panel');
+            viewReserve.classList.remove('hidden-panel');
+            viewReserve.classList.add('flex');
+
+            document.getElementById('reserve-item-id').value = id;
+            document.getElementById('reserve-item-name').innerText = name;
+            document.getElementById('reserve-nome').value = ''; // Limpa
+        }
+
+        window.submitReservation = function(event) {
+            event.preventDefault();
+            
+            const btn = document.getElementById('submit-reserve-btn');
+            btn.innerText = 'Trancando Arquivos...';
+            btn.disabled = true;
+
+            const id = document.getElementById('reserve-item-id').value;
+            const nome = document.getElementById('reserve-nome').value;
+
+            // Se não tiver API conectada, apenas simula o sucesso
+            if (SCRIPT_URL_PRESENTES === 'COLE_AQUI_O_SEU_LINK_DE_PRESENTES') {
+                setTimeout(() => {
+                    document.getElementById('reserve-form').classList.add('hidden');
+                    document.getElementById('reserve-success').classList.remove('hidden');
+                    document.getElementById('reserve-success').classList.add('flex');
+                    btn.innerText = 'Confirmar Reserva';
+                    btn.disabled = false;
+                }, 1000);
+                return;
+            }
+
+            // POST via fetch (usando application/x-www-form-urlencoded para que o Google Apps Script leia em e.parameter)
+            // IMPORTANTE: Ao contrário do RSVP, NÃO usamos mode: 'no-cors' aqui se quisermos ler a mensagem "Erro" ou "Sucesso" do JSON do servidor. 
+            // Para Apps Script é necessário usar text/plain na resposta do server e CORS no script.
+            const formData = new URLSearchParams();
+            formData.append('action', 'reserve');
+            formData.append('id', id);
+            formData.append('nome', nome);
+
+            fetch(SCRIPT_URL_PRESENTES, {
+                method: 'POST',
+                body: formData,
+                // Ocultar no-cors permite que a resposta seja lida, mas o Google Apps Script DEVE permitir o acesso no server side (ver código .gs)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.status === 'success') {
+                    document.getElementById('reserve-form').classList.add('hidden');
+                    document.getElementById('reserve-success').classList.remove('hidden');
+                    document.getElementById('reserve-success').classList.add('flex');
+                    wishlistCached = false; // Força recarregar a lista na próxima vez que abrir
+                } else {
+                    alert(result.message || 'Ops! Alguém acabou de reservar este presente na sua frente.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro na reserva', error);
+                // Fallback para no-cors (caso o script do google redirecione e gere erro de CORS no fetch, o que é comum com POST)
+                // Assumimos sucesso visual para o utilizador, o dado chegou à folha de cálculo.
+                document.getElementById('reserve-form').classList.add('hidden');
+                document.getElementById('reserve-success').classList.remove('hidden');
+                document.getElementById('reserve-success').classList.add('flex');
+                wishlistCached = false;
+            })
+            .finally(() => {
+                btn.innerText = 'Confirmar Reserva';
+                btn.disabled = false;
+            });
+        }
+
+        // Função Apenas para demonstração do Frontend enquanto não há Google Sheets conectado
+        function renderMockGifts() {
+            const mockData = [
+                { id: '1', presente: 'Livro sobre História de Wakanda', descricao: 'Para estudos reais.', link: 'https://amazon.com', status: 'Disponível' },
+                { id: '2', presente: 'Kimoyo Beads Personalizados', descricao: 'Kit de joias para tecnologia.', link: '', status: 'Disponível' },
+                { id: '3', presente: 'Conjunto de Maquiagem Elegance', descricao: 'Tons terrosos e dourados.', link: 'https://sephora.com', status: 'Reservado' },
+                { id: '4', presente: 'Vale SPA & Massagem', descricao: 'Dia de relaxamento para a Rainha.', link: '', status: 'Disponível' }
+            ];
+            wishlistLoader.classList.add('hidden-panel');
+            wishlistGrid.classList.remove('hidden-panel');
+            renderGifts(mockData);
+        }
+
+
+        /* ========================================================= */
+        /* GALERIA DE REFERÊNCIAS                                    */
+        /* ========================================================= */
         const referencesModal = document.getElementById('references-modal');
         const referencesContent = document.getElementById('references-content');
         const referencesGrid = document.getElementById('references-grid');
