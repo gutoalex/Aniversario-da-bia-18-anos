@@ -703,8 +703,11 @@
                 rsvpContent.classList.remove('scale-95');
             }, 10);
             
+            // Restaura visibilidade do form e footer
             rsvpForm.classList.remove('hidden');
             rsvpFooter.classList.remove('hidden');
+            
+            // Oculta a mensagem de sucesso
             rsvpSuccess.classList.add('hidden');
             rsvpSuccess.classList.remove('flex');
             
@@ -755,24 +758,11 @@
             formData.append('acompanhantes', acompanhantesStr);
             formData.append('total_pessoas', numAcompanhantes + 1); // +1 para incluir o titular
 
-            // =========================================================
-            // COLE AQUI O LINK DO GOOGLE APPS SCRIPT QUE VOCÊ GERAR
-            // =========================================================
+            // URL do Google Apps Script
             const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzK2px_V8JeHBmQ3ASdEYh9b2Iygo3R7Wqz-oPJjyjXJC04wkO6N0SI5gcGefEspg7Crw/exec'; 
 
-            // Se ainda não colocou o link, simula o sucesso apenas para ver a tela mudando
-            if(SCRIPT_URL === 'COLE_AQUI_O_SEU_LINK') {
-                setTimeout(() => {
-                    rsvpForm.classList.add('hidden');
-                    rsvpFooter.classList.add('hidden');
-                    rsvpSuccess.classList.remove('hidden');
-                    rsvpSuccess.classList.add('flex');
-                }, 1500);
-                return;
-            }
-
-            // Envia para a planilha
-            fetch(SCRIPT_URL, { method: 'POST', body: formData })
+            // Envia para a planilha com mode: 'no-cors' para ultrapassar bloqueio de segurança
+            fetch(SCRIPT_URL, { method: 'POST', body: formData, mode: 'no-cors' })
                 .then(response => {
                     rsvpForm.classList.add('hidden');
                     rsvpFooter.classList.add('hidden');
@@ -780,7 +770,7 @@
                     rsvpSuccess.classList.add('flex');
                 })
                 .catch(error => {
-                    console.error('Erro!', error.message);
+                    console.error('Erro!', error);
                     alert('Houve um problema de conexão com as fronteiras. Tente novamente.');
                     btn.innerText = 'Confirmar Presença';
                     btn.disabled = false;
