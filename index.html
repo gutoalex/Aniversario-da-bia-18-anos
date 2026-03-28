@@ -748,18 +748,16 @@
             guestInputs.forEach(input => {
                 if(input.value.trim() !== '') acompanhantes.push(input.value.trim());
             });
-            // Junta os nomes separando com " | "
-            const acompanhantesStr = acompanhantes.length > 0 ? acompanhantes.join(' | ') : 'Nenhum';
 
-            // CORREÇÃO AQUI: Usar URLSearchParams para compatibilidade total com o Google Apps Script
+            // CORREÇÃO AQUI: Usar URLSearchParams e JSON.stringify para criar múltiplas linhas
             const data = new URLSearchParams();
             data.append('nome', nome);
             data.append('celular', celular);
-            data.append('acompanhantes', acompanhantesStr);
-            data.append('total_pessoas', numAcompanhantes + 1); // +1 para incluir o titular
+            data.append('acompanhantes', JSON.stringify(acompanhantes)); // Formato para o Google separar
+            data.append('total_pessoas', numAcompanhantes + 1); 
 
-            // URL do Google Apps Script
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzK2px_V8JeHBmQ3ASdEYh9b2Iygo3R7Wqz-oPJjyjXJC04wkO6N0SI5gcGefEspg7Crw/exec'; 
+            // URL do Google Apps Script (Link Atualizado)
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbytZuEhBMu5PT8yhX0UedJtUrCQccl-6Iq-c5jG78aL5kkwYwwp9lWJhc8wiUCgyJCdJg/exec'; 
 
             // Envia para a planilha com mode: 'no-cors' para ultrapassar bloqueio de segurança
             fetch(SCRIPT_URL, { method: 'POST', body: data, mode: 'no-cors' })
