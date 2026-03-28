@@ -55,14 +55,11 @@
             position: relative;
         }
 
-        /* NOVOS PADRÕES TRIBAL / WAKANDA GEOMÉTRICOS (Baseados nas imagens) */
-        
-        /* Fundo Diamantes Wakanda (Similar à imagem roxa) */
+        /* NOVOS PADRÕES TRIBAL / WAKANDA GEOMÉTRICOS */
         .bg-wakanda-diamonds {
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' stroke='%236b21a8' stroke-width='1.5' stroke-opacity='0.4'/%3E%3Cpath d='M30 15L45 30L30 45L15 30z' stroke='%239d00ff' stroke-width='2' stroke-opacity='0.3'/%3E%3Cpath d='M30 25L35 30L30 35L25 30z' fill='%23FFD700' fill-opacity='0.15'/%3E%3C/g%3E%3C/svg%3E");
         }
 
-        /* Faixa Tribal Lateral (Zigue-zague estilo tecido africano) */
         .tribal-border-left {
             position: absolute;
             top: 0; bottom: 0; left: 0; width: 28px;
@@ -74,7 +71,6 @@
             z-index: 1;
         }
 
-        /* Faixas Tribais Horizontais (Zigue-zague) */
         .tribal-border-top {
             position: absolute;
             top: 0; left: 0; right: 0; height: 24px;
@@ -95,7 +91,7 @@
             z-index: 1;
         }
 
-        /* Classes para a Fonte Wakanda Forever (Símbolo dentro da letra) */
+        /* Classes para a Fonte Wakanda Forever */
         .wakanda-char {
             position: relative;
             display: inline-block;
@@ -232,6 +228,14 @@
         <!-- Header / Título Wakanda Forever -->
         <header class="text-center mb-10 sm:mb-14 relative pt-8 sm:pt-10">
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-wakanda-vibranium to-transparent"></div>
+            
+            <!-- NOVO: LOGO DA BEATRIZ AQUI -->
+            <div class="flex justify-center mb-8 sm:mb-10 relative z-10">
+                <!-- A imagem vai buscar logo.png na pasta img do seu github -->
+                <!-- Se ela ainda não existir, o "onerror" oculta o elemento para não ficar feio -->
+                <img src="./img/logo.png" alt="Brasão Real Beatriz dos Anjos" class="w-48 sm:w-64 object-contain drop-shadow-[0_0_30px_rgba(157,0,255,0.6)] hover:scale-105 transition-transform duration-500" onerror="this.style.display='none'">
+            </div>
+
             <p class="font-tech text-wakanda-gold tracking-[0.3em] sm:tracking-[0.4em] uppercase text-xs sm:text-sm mb-4 glow-gold">Convocação Oficial</p>
             
             <!-- Título Renderizado via JS -->
@@ -475,23 +479,20 @@
         </button>
     </div>
 
-    <!-- Modal RSVP -->
-    <div id="rsvp-modal" class="fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <!-- Alteração: flex flex-col e max-h-[85vh] garantem que o modal não passe da tela do celular -->
-        <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] p-6 sm:p-8 w-full max-w-md max-h-[85vh] flex flex-col relative transform scale-95 transition-transform duration-300 overflow-hidden my-auto" id="rsvp-content">
-            <!-- Fundo do modal -->
-            <div class="absolute inset-0 bg-wakanda-diamonds opacity-10 pointer-events-none"></div>
-            
-            <button onclick="closeRSVP()" class="absolute top-3 right-5 sm:top-4 sm:right-6 text-gray-400 hover:text-wakanda-vibranium text-2xl transition-colors z-20">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            
-            <h3 class="font-wakanda text-2xl text-wakanda-gold mb-4 border-b border-wakanda-purple/30 pb-2 relative z-10 shrink-0">Confirmação de Presença</h3>
-            
-            <form id="rsvp-form" class="flex flex-col flex-1 overflow-hidden relative z-10" onsubmit="submitRSVP(event)">
+    <!-- Modal RSVP (Reestruturado para não travar o Scroll de Celular) -->
+    <div id="rsvp-modal" class="fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm hidden overflow-y-auto overscroll-contain transition-opacity duration-300">
+        <div class="min-h-screen px-4 py-10 flex flex-col justify-center items-center">
+            <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] p-6 sm:p-8 w-full max-w-md relative transform scale-95 transition-transform duration-300" id="rsvp-content">
+                <!-- Fundo do modal -->
+                <div class="absolute inset-0 bg-wakanda-diamonds opacity-10 pointer-events-none"></div>
                 
-                <!-- ÁREA ROLÁVEL: Apenas os inputs dão scroll, o botão fica fixo. overscroll-contain trava o scroll do fundo -->
-                <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar space-y-4 pb-2 overscroll-contain" style="-webkit-overflow-scrolling: touch;">
+                <button onclick="closeRSVP()" class="absolute top-3 right-5 sm:top-4 sm:right-6 text-gray-400 hover:text-wakanda-vibranium text-2xl transition-colors z-20">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                
+                <h3 class="font-wakanda text-2xl text-wakanda-gold mb-6 border-b border-wakanda-purple/30 pb-2 relative z-10">Confirmação de Presença</h3>
+                
+                <form id="rsvp-form" class="space-y-4 relative z-10" onsubmit="submitRSVP(event)">
                     <div>
                         <label class="block font-tech text-sm text-gray-400 uppercase tracking-wider mb-1">Nome Completo</label>
                         <input type="text" required placeholder="Digite seu nome..." class="w-full bg-[#111] border border-wakanda-purple/50 focus:border-wakanda-vibranium text-white p-3 outline-none font-tech transition-colors clip-futuristic">
@@ -504,44 +505,42 @@
 
                     <!-- Container onde os campos de nome dos acompanhantes vão aparecer dinamicamente -->
                     <div id="acompanhantes-container" class="space-y-3 mt-3 empty:hidden"></div>
-                </div>
 
-                <!-- BOTÃO FIXO NA BASE -->
-                <div class="pt-4 mt-2 border-t border-wakanda-purple/30 shrink-0">
-                    <button type="submit" class="w-full clip-btn bg-wakanda-vibranium text-white font-wakanda text-base sm:text-lg py-3 hover:bg-wakanda-purple transition-colors shadow-[0_0_15px_rgba(157,0,255,0.4)]">
+                    <button type="submit" class="w-full clip-btn bg-wakanda-vibranium text-white font-wakanda text-base sm:text-lg py-3 mt-6 hover:bg-wakanda-purple transition-colors shadow-[0_0_15px_rgba(157,0,255,0.4)]">
                         Confirmar Presença
                     </button>
+                </form>
+                
+                <div id="rsvp-success" class="hidden flex-col items-center justify-center py-6 sm:py-8 relative z-10">
+                    <i class="fa-solid fa-check-circle text-4xl sm:text-5xl text-wakanda-gold mb-4"></i>
+                    <h4 class="font-wakanda text-lg sm:text-xl text-white">Confirmação Recebida!</h4>
+                    <p class="font-tech text-sm sm:text-base text-gray-400 mt-2 text-center">Sua presença foi confirmada nos arquivos reais.</p>
+                    <button onclick="closeRSVP()" class="mt-8 text-wakanda-vibranium underline font-tech uppercase tracking-wider text-xs sm:text-sm">Fechar Portal</button>
                 </div>
-            </form>
-            
-            <!-- Mensagem de Sucesso centralizada -->
-            <div id="rsvp-success" class="hidden flex-col items-center justify-center flex-1 py-6 sm:py-8 relative z-10">
-                <i class="fa-solid fa-check-circle text-4xl sm:text-5xl text-wakanda-gold mb-4"></i>
-                <h4 class="font-wakanda text-lg sm:text-xl text-white">Confirmação Recebida!</h4>
-                <p class="font-tech text-sm sm:text-base text-gray-400 mt-2 text-center">Sua presença foi confirmada nos arquivos reais.</p>
-                <button onclick="closeRSVP()" class="mt-8 text-wakanda-vibranium underline font-tech uppercase tracking-wider text-xs sm:text-sm">Fechar Portal</button>
             </div>
         </div>
     </div>
 
     <!-- NOVO: Modal de Referências de Roupas -->
-    <div id="references-modal" class="fixed inset-0 z-[70] bg-black/95 backdrop-blur-md hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] p-4 sm:p-8 w-full max-w-4xl max-h-[85vh] flex flex-col relative transform scale-95 transition-transform duration-300 overflow-hidden my-auto" id="references-content">
-            <!-- Fundo do modal -->
-            <div class="absolute inset-0 bg-wakanda-diamonds opacity-10 pointer-events-none"></div>
-            
-            <button onclick="closeReferences()" class="absolute top-3 right-5 sm:top-4 sm:right-6 text-gray-400 hover:text-wakanda-vibranium text-3xl transition-colors z-20 bg-black/50 w-10 h-10 rounded-full flex items-center justify-center">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            
-            <h3 class="font-wakanda text-xl sm:text-2xl text-wakanda-gold mb-4 border-b border-wakanda-purple/30 pb-3 relative z-10 shrink-0 flex items-center">
-                <i class="fa-solid fa-crown mr-3 text-wakanda-vibranium"></i> Inspirações Wakanda Elegance
-            </h3>
-            
-            <!-- ÁREA ROLÁVEL DA GALERIA -->
-            <div class="flex-1 overflow-y-auto pr-2 custom-scrollbar relative z-10 overscroll-contain" style="-webkit-overflow-scrolling: touch;">
-                <div id="references-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 pb-4">
-                    <!-- As imagens serão injetadas aqui via JavaScript -->
+    <div id="references-modal" class="fixed inset-0 z-[70] bg-black/95 backdrop-blur-md hidden overflow-y-auto overscroll-contain transition-opacity duration-300">
+        <div class="min-h-screen px-4 py-10 flex flex-col justify-center items-center">
+            <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] p-4 sm:p-8 w-full max-w-4xl relative transform scale-95 transition-transform duration-300" id="references-content">
+                <!-- Fundo do modal -->
+                <div class="absolute inset-0 bg-wakanda-diamonds opacity-10 pointer-events-none"></div>
+                
+                <button onclick="closeReferences()" class="absolute top-3 right-5 sm:top-4 sm:right-6 text-gray-400 hover:text-wakanda-vibranium text-3xl transition-colors z-20 bg-black/50 w-10 h-10 rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                
+                <h3 class="font-wakanda text-xl sm:text-2xl text-wakanda-gold mb-6 border-b border-wakanda-purple/30 pb-3 relative z-10 flex items-center">
+                    <i class="fa-solid fa-crown mr-3 text-wakanda-vibranium"></i> Inspirações Wakanda Elegance
+                </h3>
+                
+                <!-- ÁREA ROLÁVEL DA GALERIA -->
+                <div class="relative z-10">
+                    <div id="references-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 pb-4">
+                        <!-- As imagens serão injetadas aqui via JavaScript -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -554,13 +553,6 @@
         </button>
         <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-[0_0_40px_rgba(157,0,255,0.4)] transform scale-95 transition-transform duration-300 relative z-10" alt="Referência Ampliada" onclick="event.stopPropagation();">
     </div>
-
-    <style>
-        /* Ajuste do scrollbar do modal caso tenha muitos convidados ou imagens */
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #111; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #9d00ff; border-radius: 4px; }
-    </style>
 
     <!-- Scripts -->
     <script>
@@ -762,17 +754,16 @@
             if (!referencesLoaded) {
                 const totalImages = 19;
                 for (let i = 1; i <= totalImages; i++) {
-                    // Trata o caso específico do arquivo "17 .jpeg" que tem um espaço no GitHub
-                    const fileName = i === 17 ? '17%20.jpeg' : `${i}.jpeg`;
+                    const fileName = `${i}.jpeg`;
                     
                     // Uso de caminho relativo estrito (./) para evitar erros de leitura no GitHub Pages
                     const imagePath = `./roupa/${fileName}`;
-                    const fallbackPath = `./roupa/${i === 17 ? '17%20.jpg' : i + '.jpg'}`;
+                    const fallbackPath = `./roupa/${i}.jpg`;
                     
                     const imgDiv = document.createElement('div');
                     imgDiv.className = 'relative aspect-[3/4] overflow-hidden rounded border border-wakanda-purple/30 group bg-[#111] cursor-pointer';
                     
-                    // Abre o lightbox garantindo que puxa o caminho que DEU CERTO (seja o original ou o fallback)
+                    // Abre o lightbox garantindo que puxa o caminho que DEU CERTO
                     imgDiv.onclick = function() {
                         const actualSrc = this.querySelector('img').src;
                         openLightbox(actualSrc);
