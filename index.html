@@ -617,12 +617,14 @@
                     </p>
                     
                     <div class="bg-white p-3 rounded-lg shadow-[0_0_20px_rgba(157,0,255,0.4)] mb-6 inline-block">
-                        <img src="./img/qrcode.png" alt="QR Code PIX" class="w-48 h-48 object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200.png?text=SEU+QR+CODE+AQUI';">
+                        <!-- Lembre-se de colocar a imagem real do seu QR Code em ./img/qrcode.png -->
+                        <img src="./img/qrcode.png" alt="QR Code PIX" class="w-48 h-48 object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200.png?text=QR+CODE+AQUI';">
                     </div>
 
                     <div class="w-full max-w-sm mx-auto bg-[#111] border border-wakanda-purple/50 p-4 clip-futuristic relative">
                         <p class="font-tech text-xs text-wakanda-vibranium uppercase tracking-widest mb-1">Chave PIX Copia e Cola</p>
-                        <p id="pix-key-text" class="font-tech text-lg text-white font-bold select-all break-all text-center">00020101021126330014br.gov.bcb.pix0111549635368895204000053039865802BR5921BEATRIZ C S DOS ANJOS6006OSASCO62070503***63045F7B</p>
+                        <!-- Nova chave PIX com break-all para não quebrar a tela do telemóvel -->
+                        <p id="pix-key-text" class="font-tech text-sm sm:text-base text-white font-bold select-all break-all text-center">00020101021126330014br.gov.bcb.pix0111549635368895204000053039865802BR5921BEATRIZ C S DOS ANJOS6006OSASCO62070503***63045F7B</p>
                     </div>
 
                     <button onclick="copyPixKey()" class="mt-6 clip-btn bg-wakanda-purple hover:bg-wakanda-vibranium text-white font-wakanda text-sm sm:text-base py-3 px-8 uppercase tracking-wider transition-colors shadow-lg">
@@ -690,7 +692,6 @@
         const SCRIPT_URL_RSVP = 'https://script.google.com/macros/s/AKfycbytZuEhBMu5PT8yhX0UedJtUrCQccl-6Iq-c5jG78aL5kkwYwwp9lWJhc8wiUCgyJCdJg/exec';
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Remove a tela de carregamento após a página estar pronta
             const mainContent = document.getElementById('main-content');
             
             /* --- FUNÇÃO PARA CRIAR A FONTE COM SÍMBOLOS INTERNOS --- */
@@ -771,7 +772,7 @@
 
                 setTimeout(() => {
                     document.body.style.overflowY = 'auto'; 
-                    portalScreen.style.display = 'none'; // Esconde para não atrapalhar clicks
+                    portalScreen.style.display = 'none'; 
                 }, 1200);
             });
 
@@ -926,7 +927,6 @@
         const viewWishlist = document.getElementById('gifts-wishlist');
         const viewReserve = document.getElementById('gifts-reserve');
         
-        // Wishlist Elements
         const wishlistLoader = document.getElementById('wishlist-loader');
         const wishlistGrid = document.getElementById('wishlist-grid');
         let wishlistCached = false; 
@@ -940,7 +940,7 @@
                 giftsContent.classList.remove('scale-95');
             }, 10);
             
-            showGiftsMenu(); // Garante que abre na tela de menu
+            showGiftsMenu(); 
         }
 
         window.closeGifts = function() {
@@ -953,7 +953,6 @@
             }, 300);
         }
 
-        // Navegação dentro do Modal de Presentes
         window.showGiftsMenu = function() {
             giftsTitle.innerHTML = '<i class="fa-solid fa-gift mr-3 text-wakanda-vibranium"></i> Como Presentear a Realeza?';
             btnVoltarPresentes.classList.add('hidden-panel');
@@ -1001,22 +1000,20 @@
             document.getElementById('reserve-success').classList.add('hidden');
             document.getElementById('reserve-success').classList.remove('flex');
 
-            if (!wishlistCached && SCRIPT_URL_PRESENTES !== 'COLE_AQUI_O_SEU_LINK_DE_PRESENTES') {
+            if (!wishlistCached) {
                 loadWishlistData();
-            } else if (SCRIPT_URL_PRESENTES === 'COLE_AQUI_O_SEU_LINK_DE_PRESENTES') {
-                renderMockGifts();
-            }
+            } 
         }
 
         function loadWishlistData() {
             wishlistLoader.classList.remove('hidden-panel');
             wishlistGrid.classList.add('hidden-panel');
             
-            // Adicionando um timestamp para limpar o cache da requisição (t=timestamp)
+            // Faz um pedido para o Google Sheets e limpa a cache para trazer os dados novos
             fetch(SCRIPT_URL_PRESENTES + "?action=getGifts&t=" + new Date().getTime())
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Erro de permissão no Google');
                 }
                 return response.json();
             })
@@ -1027,15 +1024,14 @@
                 wishlistGrid.classList.remove('hidden-panel');
             })
             .catch(error => {
-                console.error('Erro ao carregar wishlist (Possível bloqueio de permissões)', error);
+                console.error('Erro:', error);
                 
-                // Fallback para o modo de demonstração em caso de erro de leitura do Google
                 wishlistLoader.innerHTML = `
                     <div class="text-center p-4 border border-red-500/50 bg-red-500/10 rounded mb-4 max-w-sm mx-auto">
-                        <p class="text-red-400 font-tech text-sm"><i class="fa-solid fa-triangle-exclamation mr-2"></i> Erro de ligação aos Arquivos.</p>
-                        <p class="text-gray-400 font-tech text-xs mt-1">Verifique se o script da Wishlist no Google foi publicado com Acesso a "Qualquer pessoa" (Anyone).</p>
+                        <p class="text-red-400 font-tech text-sm"><i class="fa-solid fa-triangle-exclamation mr-2"></i> Falha de comunicação.</p>
+                        <p class="text-gray-400 font-tech text-xs mt-1">Verifique as permissões de acesso da nova folha de presentes no seu Google Script.</p>
                     </div>
-                    <p class="text-yellow-500 font-tech text-xs animate-pulse text-center">A carregar modo de demonstração provisório...</p>
+                    <p class="text-yellow-500 font-tech text-xs animate-pulse text-center">A carregar modo provisório...</p>
                 `;
                 
                 setTimeout(() => {
@@ -1105,32 +1101,22 @@
             const id = document.getElementById('reserve-item-id').value;
             const nome = document.getElementById('reserve-nome').value;
 
-            if (SCRIPT_URL_PRESENTES === 'COLE_AQUI_O_SEU_LINK_DE_PRESENTES') {
-                setTimeout(() => {
-                    document.getElementById('reserve-form').classList.add('hidden');
-                    document.getElementById('reserve-success').classList.remove('hidden');
-                    document.getElementById('reserve-success').classList.add('flex');
-                    btn.innerText = 'Confirmar Reserva';
-                    btn.disabled = false;
-                }, 1000);
-                return;
-            }
-
             const formData = new URLSearchParams();
             formData.append('action', 'reserve');
             formData.append('id', id);
             formData.append('nome', nome);
 
+            // POST com no-cors para garantir o envio invisível sem bloqueios de segurança
             fetch(SCRIPT_URL_PRESENTES, {
                 method: 'POST',
                 body: formData,
-                mode: 'no-cors' // Usamos no-cors para evitar falhas de redicionamento na submissão
+                mode: 'no-cors' 
             })
             .then(() => {
                 document.getElementById('reserve-form').classList.add('hidden');
                 document.getElementById('reserve-success').classList.remove('hidden');
                 document.getElementById('reserve-success').classList.add('flex');
-                wishlistCached = false; 
+                wishlistCached = false; // Vai forçar a buscar a lista nova da próxima vez
             })
             .catch(error => {
                 console.error('Erro na reserva', error);
@@ -1145,7 +1131,6 @@
             });
         }
 
-        // Função Apenas para demonstração (Fallback de Segurança)
         function renderMockGifts() {
             const mockData = [
                 { id: '1', presente: 'Livro sobre História de Wakanda', descricao: 'Para estudos reais.', link: 'https://amazon.com', status: 'Disponível' },
