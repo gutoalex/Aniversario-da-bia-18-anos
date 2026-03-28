@@ -751,18 +751,18 @@
             // Junta os nomes separando com " | "
             const acompanhantesStr = acompanhantes.length > 0 ? acompanhantes.join(' | ') : 'Nenhum';
 
-            // Cria o pacote de dados para enviar
-            const formData = new FormData();
-            formData.append('nome', nome);
-            formData.append('celular', celular);
-            formData.append('acompanhantes', acompanhantesStr);
-            formData.append('total_pessoas', numAcompanhantes + 1); // +1 para incluir o titular
+            // CORREÇÃO AQUI: Usar URLSearchParams para compatibilidade total com o Google Apps Script
+            const data = new URLSearchParams();
+            data.append('nome', nome);
+            data.append('celular', celular);
+            data.append('acompanhantes', acompanhantesStr);
+            data.append('total_pessoas', numAcompanhantes + 1); // +1 para incluir o titular
 
             // URL do Google Apps Script
             const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzK2px_V8JeHBmQ3ASdEYh9b2Iygo3R7Wqz-oPJjyjXJC04wkO6N0SI5gcGefEspg7Crw/exec'; 
 
             // Envia para a planilha com mode: 'no-cors' para ultrapassar bloqueio de segurança
-            fetch(SCRIPT_URL, { method: 'POST', body: formData, mode: 'no-cors' })
+            fetch(SCRIPT_URL, { method: 'POST', body: data, mode: 'no-cors' })
                 .then(response => {
                     rsvpForm.classList.add('hidden');
                     rsvpFooter.classList.add('hidden');
