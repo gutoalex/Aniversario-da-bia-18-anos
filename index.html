@@ -751,6 +751,9 @@
             document.body.style.overflow = 'hidden';
 
             openBtn.addEventListener('click', () => {
+                // Ativa a classe que revela o conteúdo do site
+                document.body.classList.add('portal-open');
+                
                 // Efeito de dissolver o portal
                 portalScreen.style.opacity = '0';
                 portalScreen.style.transform = 'scale(1.5)';
@@ -926,7 +929,7 @@
         // Wishlist Elements
         const wishlistLoader = document.getElementById('wishlist-loader');
         const wishlistGrid = document.getElementById('wishlist-grid');
-        let wishlistCached = false; // Evita recarregar a cada clique se já puxou
+        let wishlistCached = false; 
 
         window.openGifts = function() {
             document.body.style.overflow = 'hidden'; 
@@ -994,7 +997,6 @@
             viewWishlist.classList.add('flex');
             viewReserve.classList.add('hidden-panel');
 
-            // Limpa o formulário de reserva caso esteja visível
             document.getElementById('reserve-form').classList.remove('hidden');
             document.getElementById('reserve-success').classList.add('hidden');
             document.getElementById('reserve-success').classList.remove('flex');
@@ -1002,7 +1004,6 @@
             if (!wishlistCached && SCRIPT_URL_PRESENTES !== 'COLE_AQUI_O_SEU_LINK_DE_PRESENTES') {
                 loadWishlistData();
             } else if (SCRIPT_URL_PRESENTES === 'COLE_AQUI_O_SEU_LINK_DE_PRESENTES') {
-                // Dados de Exemplo para visualização se não tiver link
                 renderMockGifts();
             }
         }
@@ -1011,19 +1012,36 @@
             wishlistLoader.classList.remove('hidden-panel');
             wishlistGrid.classList.add('hidden-panel');
             
-            // Faz requisição GET para pegar presentes disponíveis
-            fetch(SCRIPT_URL_PRESENTES + "?action=getGifts")
-                .then(response => response.json())
-                .then(data => {
-                    renderGifts(data);
-                    wishlistCached = true;
-                    wishlistLoader.classList.add('hidden-panel');
-                    wishlistGrid.classList.remove('hidden-panel');
-                })
-                .catch(error => {
-                    console.error('Erro ao carregar wishlist', error);
-                    wishlistLoader.innerHTML = '<p class="text-red-500 font-tech">Falha na comunicação. Tente novamente mais tarde.</p>';
-                });
+            // Adicionando um timestamp para limpar o cache da requisição (t=timestamp)
+            fetch(SCRIPT_URL_PRESENTES + "?action=getGifts&t=" + new Date().getTime())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                renderGifts(data);
+                wishlistCached = true;
+                wishlistLoader.classList.add('hidden-panel');
+                wishlistGrid.classList.remove('hidden-panel');
+            })
+            .catch(error => {
+                console.error('Erro ao carregar wishlist (Possível bloqueio de permissões)', error);
+                
+                // Fallback para o modo de demonstração em caso de erro de leitura do Google
+                wishlistLoader.innerHTML = `
+                    <div class="text-center p-4 border border-red-500/50 bg-red-500/10 rounded mb-4 max-w-sm mx-auto">
+                        <p class="text-red-400 font-tech text-sm"><i class="fa-solid fa-triangle-exclamation mr-2"></i> Erro de ligação aos Arquivos.</p>
+                        <p class="text-gray-400 font-tech text-xs mt-1">Verifique se o script da Wishlist no Google foi publicado com Acesso a "Qualquer pessoa" (Anyone).</p>
+                    </div>
+                    <p class="text-yellow-500 font-tech text-xs animate-pulse text-center">A carregar modo de demonstração provisório...</p>
+                `;
+                
+                setTimeout(() => {
+                    renderMockGifts();
+                }, 2500);
+            });
         }
 
         function renderGifts(gifts) {
@@ -1035,7 +1053,6 @@
             }
 
             gifts.forEach(gift => {
-                // Pular se já estiver reservado
                 if (gift.status && gift.status.toLowerCase() === 'reservado') return;
 
                 const card = document.createElement('div');
@@ -1059,7 +1076,6 @@
                 wishlistGrid.appendChild(card);
             });
             
-            // Se após filtrar os reservados não sobrar nada:
             if (wishlistGrid.innerHTML === '') {
                 wishlistGrid.innerHTML = '<div class="col-span-2 text-center text-gray-400 font-tech py-6">A Rainha já recebeu todos os presentes desta lista! <br>Mas você ainda pode usar a opção de PIX.</div>';
             }
@@ -1076,7 +1092,7 @@
 
             document.getElementById('reserve-item-id').value = id;
             document.getElementById('reserve-item-name').innerText = name;
-            document.getElementById('reserve-nome').value = ''; // Limpa
+            document.getElementById('reserve-nome').value = ''; 
         }
 
         window.submitReservation = function(event) {
@@ -1089,7 +1105,6 @@
             const id = document.getElementById('reserve-item-id').value;
             const nome = document.getElementById('reserve-nome').value;
 
-            // Se não tiver API conectada, apenas simula o sucesso
             if (SCRIPT_URL_PRESENTES === 'COLE_AQUI_O_SEU_LINK_DE_PRESENTES') {
                 setTimeout(() => {
                     document.getElementById('reserve-form').classList.add('hidden');
@@ -1101,9 +1116,6 @@
                 return;
             }
 
-            // POST via fetch (usando application/x-www-form-urlencoded para que o Google Apps Script leia em e.parameter)
-            // IMPORTANTE: Ao contrário do RSVP, NÃO usamos mode: 'no-cors' aqui se quisermos ler a mensagem "Erro" ou "Sucesso" do JSON do servidor. 
-            // Para Apps Script é necessário usar text/plain na resposta do server e CORS no script.
             const formData = new URLSearchParams();
             formData.append('action', 'reserve');
             formData.append('id', id);
@@ -1112,23 +1124,16 @@
             fetch(SCRIPT_URL_PRESENTES, {
                 method: 'POST',
                 body: formData,
-                // Ocultar no-cors permite que a resposta seja lida, mas o Google Apps Script DEVE permitir o acesso no server side (ver código .gs)
+                mode: 'no-cors' // Usamos no-cors para evitar falhas de redicionamento na submissão
             })
-            .then(response => response.json())
-            .then(result => {
-                if (result.status === 'success') {
-                    document.getElementById('reserve-form').classList.add('hidden');
-                    document.getElementById('reserve-success').classList.remove('hidden');
-                    document.getElementById('reserve-success').classList.add('flex');
-                    wishlistCached = false; // Força recarregar a lista na próxima vez que abrir
-                } else {
-                    alert(result.message || 'Ops! Alguém acabou de reservar este presente na sua frente.');
-                }
+            .then(() => {
+                document.getElementById('reserve-form').classList.add('hidden');
+                document.getElementById('reserve-success').classList.remove('hidden');
+                document.getElementById('reserve-success').classList.add('flex');
+                wishlistCached = false; 
             })
             .catch(error => {
                 console.error('Erro na reserva', error);
-                // Fallback para no-cors (caso o script do google redirecione e gere erro de CORS no fetch, o que é comum com POST)
-                // Assumimos sucesso visual para o utilizador, o dado chegou à folha de cálculo.
                 document.getElementById('reserve-form').classList.add('hidden');
                 document.getElementById('reserve-success').classList.remove('hidden');
                 document.getElementById('reserve-success').classList.add('flex');
@@ -1140,7 +1145,7 @@
             });
         }
 
-        // Função Apenas para demonstração do Frontend enquanto não há Google Sheets conectado
+        // Função Apenas para demonstração (Fallback de Segurança)
         function renderMockGifts() {
             const mockData = [
                 { id: '1', presente: 'Livro sobre História de Wakanda', descricao: 'Para estudos reais.', link: 'https://amazon.com', status: 'Disponível' },
@@ -1152,7 +1157,6 @@
             wishlistGrid.classList.remove('hidden-panel');
             renderGifts(mockData);
         }
-
 
         /* ========================================================= */
         /* GALERIA DE REFERÊNCIAS                                    */
