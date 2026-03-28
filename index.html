@@ -55,7 +55,7 @@
             position: relative;
         }
 
-        /* NOVOS PADRÕES TRIBAL / WAKANDA GEOMÉTRICOS */
+        /* Fundo Diamantes Wakanda */
         .bg-wakanda-diamonds {
             background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' stroke='%236b21a8' stroke-width='1.5' stroke-opacity='0.4'/%3E%3Cpath d='M30 15L45 30L30 45L15 30z' stroke='%239d00ff' stroke-width='2' stroke-opacity='0.3'/%3E%3Cpath d='M30 25L35 30L30 35L25 30z' fill='%23FFD700' fill-opacity='0.15'/%3E%3C/g%3E%3C/svg%3E");
         }
@@ -116,9 +116,9 @@
             pointer-events: none;
         }
 
-        /* Formatos UI Wakanda */
+        /* Formatos UI Wakanda - CORRIGIDO PARA USAR PIXELS FIXOS (evita bugs em telas grandes) */
         .clip-futuristic {
-            clip-path: polygon(5% 0, 100% 0, 100% 95%, 95% 100%, 0 100%, 0 5%);
+            clip-path: polygon(25px 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%, 0 25px);
         }
         .clip-btn {
             clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
@@ -185,6 +185,11 @@
         .audio-bars span:nth-child(4) { animation-delay: 0.6s; }
         @keyframes bounce { 0% { height: 3px; } 100% { height: 15px; } }
         .paused .audio-bars span { animation-play-state: paused; height: 3px; }
+        
+        /* Ajuste do scrollbar dos modais */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #9d00ff; border-radius: 4px; }
     </style>
 </head>
 <body class="bg-wakanda-dark font-tech antialiased min-h-screen flex flex-col items-center">
@@ -195,29 +200,21 @@
 
     <!-- TELA DE ENTRADA (O PORTAL COM A DIGITAL) -->
     <div id="portal-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#020202] overflow-hidden">
-        <!-- Elementos decorativos do portal -->
         <div class="absolute inset-0 bg-wakanda-diamonds opacity-[0.08]"></div>
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[600px] sm:h-[600px] bg-wakanda-vibranium rounded-full blur-[100px] sm:blur-[150px] opacity-20 pointer-events-none"></div>
         
-        <!-- Kimoyo/Selo Real (Digital) -->
         <div class="relative z-10 flex flex-col items-center w-full px-4">
             <div class="relative mb-8 sm:mb-12 flex justify-center">
                 <div class="absolute inset-0 rounded-full seal-pulse"></div>
-                <!-- Botão focado apenas na digital com o círculo rotativo -->
                 <button id="open-portal-btn" class="relative flex items-center justify-center w-36 h-36 sm:w-48 sm:h-48 rounded-full border-4 border-wakanda-vibranium bg-wakanda-darker text-wakanda-gold shadow-[0_0_40px_rgba(157,0,255,0.4)] transition-transform duration-500 hover:scale-105 sm:hover:scale-110 group overflow-hidden outline-none cursor-pointer">
                     <div class="absolute inset-0 bg-wakanda-vibranium opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                    
-                    <!-- Digital -->
                     <i class="fa-solid fa-fingerprint text-[4.5rem] sm:text-[6rem] text-wakanda-vibranium group-hover:text-white transition-colors duration-300 drop-shadow-[0_0_15px_rgba(157,0,255,0.8)] group-hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.8)] z-10"></i>
-                    
-                    <!-- Padrão circular giratório ao redor da digital -->
                     <svg class="absolute inset-0 w-full h-full animate-[spin_20s_linear_infinite] opacity-50 group-hover:opacity-100 transition-opacity duration-300 z-0" viewBox="0 0 100 100">
                         <circle cx="50" cy="50" r="46" fill="none" stroke="#9d00ff" stroke-width="1.5" stroke-dasharray="4 8" />
                         <circle cx="50" cy="50" r="40" fill="none" stroke="#6b21a8" stroke-width="1" stroke-dasharray="2 6" />
                     </svg>
                 </button>
             </div>
-            <!-- Texto isolado abaixo da digital -->
             <p class="font-tech text-wakanda-vibranium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs sm:text-sm animate-pulse text-center">De menina... a mulher</p>
         </div>
     </div>
@@ -229,24 +226,19 @@
         <header class="text-center mb-10 sm:mb-14 relative pt-8 sm:pt-10">
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-wakanda-vibranium to-transparent"></div>
             
-            <!-- NOVO: LOGO DA BEATRIZ AQUI -->
+            <!-- LOGO DA BEATRIZ -->
             <div class="flex justify-center mb-8 sm:mb-10 relative z-10">
-                <!-- A imagem vai buscar logo.png na pasta img do seu github -->
-                <!-- Se ela ainda não existir, o "onerror" oculta o elemento para não ficar feio -->
                 <img src="./img/logo.png" alt="Brasão Real Beatriz dos Anjos" class="w-48 sm:w-64 object-contain drop-shadow-[0_0_30px_rgba(157,0,255,0.6)] hover:scale-105 transition-transform duration-500" onerror="this.style.display='none'">
             </div>
 
             <p class="font-tech text-wakanda-gold tracking-[0.3em] sm:tracking-[0.4em] uppercase text-xs sm:text-sm mb-4 glow-gold">Convocação Oficial</p>
             
-            <!-- Título Renderizado via JS -->
             <h1 class="mb-6 sm:mb-8 uppercase text-center flex flex-col items-center justify-center gap-2 sm:gap-4 w-full relative z-10">
                 <div id="title-line1" class="text-[1.3rem] leading-none sm:text-4xl md:text-5xl flex flex-wrap justify-center items-center w-full"></div>
                 <div id="title-line2" class="text-[1.05rem] leading-none sm:text-3xl md:text-4xl flex flex-wrap justify-center items-center mt-1 sm:mt-2 w-full text-wakanda-gold"></div>
             </h1>
             
-            <!-- Nova Narrativa: O Ritual de Ascensão -->
             <div class="relative z-10 px-2 sm:px-8 py-6 sm:py-8 mt-4 bg-[#050505]/60 border border-wakanda-purple/20 backdrop-blur-sm shadow-[0_0_30px_rgba(107,33,168,0.15)]">
-                <!-- Ícone centralizado -->
                 <i class="fa-brands fa-galactic-republic text-3xl sm:text-4xl text-wakanda-vibranium mb-6 opacity-70"></i>
                 
                 <p class="font-tech text-base sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-6">
@@ -272,14 +264,12 @@
             </div>
         </header>
 
-        <!-- Seção de Detalhes (Grid de Quadrados) -->
+        <!-- Seção de Detalhes -->
         <section class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
             
             <!-- Card Data e Hora -->
             <div class="glow-vibranium clip-futuristic bg-[#080808]/90 backdrop-blur-md p-6 pl-12 sm:p-8 sm:pl-16 relative overflow-hidden group">
-                <!-- Fundo Diamantes Geométricos -->
                 <div class="absolute inset-0 bg-wakanda-diamonds opacity-[0.25] pointer-events-none mix-blend-screen"></div>
-                <!-- Faixa Tribal Lateral Esquerda -->
                 <div class="tribal-border-left"></div>
 
                 <div class="absolute -right-5 -top-5 sm:-right-10 sm:-top-10 text-wakanda-vibranium opacity-10 text-7xl sm:text-9xl pointer-events-none">
@@ -304,7 +294,6 @@
                         </div>
                     </div>
                     
-                    <!-- Contagem Regressiva Interna -->
                     <div class="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-wakanda-purple/40 w-full overflow-hidden">
                         <p class="text-xs sm:text-sm text-wakanda-vibranium uppercase tracking-[0.1em] sm:tracking-widest mb-3 text-center drop-shadow-md">Tempo até o ritual de ascensão</p>
                         <div id="countdown" class="grid grid-cols-4 gap-2 sm:gap-3 text-center font-wakanda max-w-full">
@@ -331,9 +320,7 @@
 
             <!-- Card Local e Dress Code -->
             <div class="glow-vibranium clip-futuristic bg-[#080808]/90 backdrop-blur-md p-6 pl-12 sm:p-8 sm:pl-16 relative overflow-hidden group">
-                <!-- Fundo Diamantes Geométricos -->
                 <div class="absolute inset-0 bg-wakanda-diamonds opacity-[0.25] pointer-events-none mix-blend-screen"></div>
-                <!-- Faixa Tribal Lateral Esquerda -->
                 <div class="tribal-border-left"></div>
 
                 <div class="absolute -right-5 -bottom-5 sm:-right-10 sm:-bottom-10 text-wakanda-vibranium opacity-10 text-7xl sm:text-9xl pointer-events-none">
@@ -376,7 +363,6 @@
                             “Vista-se como alguém digno de Wakanda.”
                         </p>
                         
-                        <!-- NOVO BOTÃO DE REFERÊNCIAS -->
                         <button onclick="openReferences()" class="clip-btn inline-block bg-wakanda-purple hover:bg-wakanda-vibranium text-white px-6 py-3 uppercase tracking-wider text-xs sm:text-sm font-bold mt-4 shadow-lg w-full sm:w-auto text-center transition-all">
                             <i class="fa-solid fa-image mr-2"></i> Ver Referências
                         </button>
@@ -406,7 +392,7 @@
                 <div class="relative aspect-[3/4] group overflow-hidden p-2 border border-wakanda-purple/50 bg-[#111] clip-futuristic transition-transform duration-500 hover:-translate-y-2">
                     <div class="absolute inset-0 bg-wakanda-diamonds opacity-[0.2] z-0 pointer-events-none"></div>
                     <div class="absolute inset-0 bg-wakanda-vibranium opacity-0 group-hover:opacity-20 transition-opacity z-10 pointer-events-none"></div>
-                    <img src="./img/rosto%202.png" alt="Beatriz Anjos" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 relative z-20">
+                    <img src="./img/rosto%201.png" alt="Beatriz Anjos" class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 relative z-20">
                     <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-wakanda-gold z-30 m-3"></div>
                     <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-wakanda-gold z-30 m-3"></div>
                 </div>
@@ -421,13 +407,10 @@
             </div>
         </section>
 
-        <!-- Ação de RSVP (Com Faixas Tribais Horizontais) -->
+        <!-- Ação de RSVP -->
         <section class="text-center mb-20 sm:mb-24 px-2">
             <div class="glow-vibranium clip-futuristic bg-[#080808] py-12 px-6 sm:p-14 w-full max-w-3xl mx-auto border border-wakanda-vibranium/50 relative overflow-hidden">
-                <!-- Fundo Diamantes Geométricos -->
                 <div class="absolute inset-0 bg-wakanda-diamonds opacity-[0.25] pointer-events-none mix-blend-screen"></div>
-                
-                <!-- Faixas Tribais Superior e Inferior -->
                 <div class="tribal-border-top"></div>
                 <div class="tribal-border-bottom"></div>
                 
@@ -444,13 +427,11 @@
                         Confirme a presença
                     </button>
                     
-                    <!-- Botão WhatsApp -->
                     <a href="https://wa.me/5511992543203?text=Oi%20Bia!%20Tenho%20uma%20dúvida%20sobre%20a%20sua%20festa%20de%2018%20anos." target="_blank" class="clip-btn bg-transparent border-2 border-[#25D366] text-[#25D366] font-wakanda text-sm sm:text-base py-4 px-6 w-full sm:w-auto uppercase tracking-wider hover:bg-[#25D366] hover:text-black transition-colors shadow-[0_0_15px_rgba(37,211,102,0.2)] flex items-center justify-center gap-3">
                         <i class="fa-brands fa-whatsapp text-2xl"></i> Dúvidas? Fale com a Beatriz
                     </a>
                 </div>
 
-                <!-- Aviso de Entrada / Passaporte -->
                 <div class="mt-8 pt-6 border-t border-wakanda-purple/30 relative z-10">
                     <p class="font-tech text-gray-400 text-xs sm:text-sm">
                         <i class="fa-solid fa-triangle-exclamation text-wakanda-gold mr-2"></i>
@@ -479,68 +460,77 @@
         </button>
     </div>
 
-    <!-- Modal RSVP (Reestruturado para não travar o Scroll de Celular) -->
-    <div id="rsvp-modal" class="fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm hidden overflow-y-auto overscroll-contain transition-opacity duration-300">
-        <div class="min-h-screen px-4 py-10 flex flex-col justify-center items-center">
-            <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] p-6 sm:p-8 w-full max-w-md relative transform scale-95 transition-transform duration-300" id="rsvp-content">
-                <!-- Fundo do modal -->
-                <div class="absolute inset-0 bg-wakanda-diamonds opacity-10 pointer-events-none"></div>
-                
-                <button onclick="closeRSVP()" class="absolute top-3 right-5 sm:top-4 sm:right-6 text-gray-400 hover:text-wakanda-vibranium text-2xl transition-colors z-20">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-                
-                <h3 class="font-wakanda text-2xl text-wakanda-gold mb-6 border-b border-wakanda-purple/30 pb-2 relative z-10">Confirmação de Presença</h3>
-                
-                <form id="rsvp-form" class="space-y-4 relative z-10" onsubmit="submitRSVP(event)">
+    <!-- ============================================== -->
+    <!-- MODAL RSVP REESTRUTURADO (CENTRALIZADO PERFEITO) -->
+    <!-- ============================================== -->
+    <div id="rsvp-modal" class="fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm hidden flex-col items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300">
+        <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] w-full max-w-md max-h-[90vh] flex flex-col relative transform scale-95 transition-transform duration-300" id="rsvp-content">
+            <div class="absolute inset-0 bg-wakanda-diamonds opacity-10 pointer-events-none z-0"></div>
+            
+            <!-- Botão Fechar -->
+            <button onclick="closeRSVP()" class="absolute top-4 right-5 text-gray-400 hover:text-wakanda-vibranium text-2xl transition-colors z-30">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Cabeçalho Fixo -->
+            <div class="px-6 pt-6 pb-4 border-b border-wakanda-purple/30 relative z-20 shrink-0">
+                <h3 class="font-wakanda text-xl sm:text-2xl text-wakanda-gold pr-8">Confirmação de Presença</h3>
+            </div>
+            
+            <!-- Corpo Rolável (Scroll) -->
+            <div class="px-6 py-4 overflow-y-auto custom-scrollbar relative z-10 flex-1">
+                <form id="rsvp-form" class="space-y-4" onsubmit="submitRSVP(event)">
                     <div>
                         <label class="block font-tech text-sm text-gray-400 uppercase tracking-wider mb-1">Nome Completo</label>
                         <input type="text" required placeholder="Digite seu nome..." class="w-full bg-[#111] border border-wakanda-purple/50 focus:border-wakanda-vibranium text-white p-3 outline-none font-tech transition-colors clip-futuristic">
                     </div>
-                    
                     <div>
                         <label class="block font-tech text-xs sm:text-sm text-gray-400 uppercase tracking-wider mb-1">Quantidade de Acompanhantes</label>
                         <input type="number" id="num-acompanhantes" min="0" max="6" value="0" class="w-full bg-[#111] border border-wakanda-purple/50 focus:border-wakanda-vibranium text-white p-3 outline-none font-tech clip-futuristic">
                     </div>
-
-                    <!-- Container onde os campos de nome dos acompanhantes vão aparecer dinamicamente -->
-                    <div id="acompanhantes-container" class="space-y-3 mt-3 empty:hidden"></div>
-
-                    <button type="submit" class="w-full clip-btn bg-wakanda-vibranium text-white font-wakanda text-base sm:text-lg py-3 mt-6 hover:bg-wakanda-purple transition-colors shadow-[0_0_15px_rgba(157,0,255,0.4)]">
-                        Confirmar Presença
-                    </button>
+                    <div id="acompanhantes-container" class="space-y-3 mt-3 empty:hidden pb-2"></div>
                 </form>
                 
-                <div id="rsvp-success" class="hidden flex-col items-center justify-center py-6 sm:py-8 relative z-10">
-                    <i class="fa-solid fa-check-circle text-4xl sm:text-5xl text-wakanda-gold mb-4"></i>
-                    <h4 class="font-wakanda text-lg sm:text-xl text-white">Confirmação Recebida!</h4>
-                    <p class="font-tech text-sm sm:text-base text-gray-400 mt-2 text-center">Sua presença foi confirmada nos arquivos reais.</p>
-                    <button onclick="closeRSVP()" class="mt-8 text-wakanda-vibranium underline font-tech uppercase tracking-wider text-xs sm:text-sm">Fechar Portal</button>
+                <!-- Mensagem de Sucesso -->
+                <div id="rsvp-success" class="hidden flex-col items-center justify-center py-8 text-center">
+                    <i class="fa-solid fa-check-circle text-5xl text-wakanda-gold mb-4"></i>
+                    <h4 class="font-wakanda text-xl text-white">Confirmação Recebida!</h4>
+                    <p class="font-tech text-gray-400 mt-2">Sua presença foi confirmada nos arquivos reais.</p>
                 </div>
+            </div>
+
+            <!-- Rodapé Fixo (Botão) -->
+            <div id="rsvp-footer" class="px-6 pb-6 pt-4 border-t border-wakanda-purple/30 relative z-20 shrink-0">
+                <button type="submit" form="rsvp-form" class="w-full clip-btn bg-wakanda-vibranium text-white font-wakanda text-lg py-3 hover:bg-wakanda-purple transition-colors shadow-[0_0_15px_rgba(157,0,255,0.4)]">
+                    Confirmar Presença
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- NOVO: Modal de Referências de Roupas -->
-    <div id="references-modal" class="fixed inset-0 z-[70] bg-black/95 backdrop-blur-md hidden overflow-y-auto overscroll-contain transition-opacity duration-300">
-        <div class="min-h-screen px-4 py-10 flex flex-col justify-center items-center">
-            <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] p-4 sm:p-8 w-full max-w-4xl relative transform scale-95 transition-transform duration-300" id="references-content">
-                <!-- Fundo do modal -->
-                <div class="absolute inset-0 bg-wakanda-diamonds opacity-10 pointer-events-none"></div>
-                
-                <button onclick="closeReferences()" class="absolute top-3 right-5 sm:top-4 sm:right-6 text-gray-400 hover:text-wakanda-vibranium text-3xl transition-colors z-20 bg-black/50 w-10 h-10 rounded-full flex items-center justify-center">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-                
-                <h3 class="font-wakanda text-xl sm:text-2xl text-wakanda-gold mb-6 border-b border-wakanda-purple/30 pb-3 relative z-10 flex items-center">
-                    <i class="fa-solid fa-crown mr-3 text-wakanda-vibranium"></i> Inspirações Wakanda Elegance
+    <!-- ============================================== -->
+    <!-- MODAL DE REFERÊNCIAS REESTRUTURADO             -->
+    <!-- ============================================== -->
+    <div id="references-modal" class="fixed inset-0 z-[70] bg-black/95 backdrop-blur-md hidden flex-col items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300">
+        <div class="glow-vibranium clip-futuristic bg-[#0a0a0a] w-full max-w-5xl max-h-[90vh] flex flex-col relative transform scale-95 transition-transform duration-300" id="references-content">
+            <div class="absolute inset-0 bg-wakanda-diamonds opacity-10 pointer-events-none z-0"></div>
+            
+            <!-- Botão Fechar -->
+            <button onclick="closeReferences()" class="absolute top-4 right-5 text-gray-400 hover:text-wakanda-vibranium text-2xl sm:text-3xl transition-colors z-30 w-10 h-10 flex items-center justify-center bg-black/50 rounded-full">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Cabeçalho Fixo -->
+            <div class="px-5 sm:px-8 pt-6 pb-4 border-b border-wakanda-purple/30 relative z-20 shrink-0">
+                <h3 class="font-wakanda text-xl sm:text-2xl text-wakanda-gold pr-10 flex items-center">
+                    <i class="fa-solid fa-crown mr-3 text-wakanda-vibranium"></i> Inspirações Elegance
                 </h3>
-                
-                <!-- ÁREA ROLÁVEL DA GALERIA -->
-                <div class="relative z-10">
-                    <div id="references-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 pb-4">
-                        <!-- As imagens serão injetadas aqui via JavaScript -->
-                    </div>
+            </div>
+            
+            <!-- Corpo Rolável (Grid de Imagens) -->
+            <div class="p-5 sm:p-8 overflow-y-auto custom-scrollbar relative z-10 flex-1">
+                <div id="references-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 pb-4">
+                    <!-- As imagens serão injetadas aqui via JavaScript -->
                 </div>
             </div>
         </div>
@@ -603,19 +593,17 @@
                 });
             }
 
-            // Renderiza os títulos com o efeito especial
+            // Renderiza os títulos
             renderWakandaText('RITUAL DE ASCENSÃO', 'title-line1');
             renderWakandaText('COROAÇÃO DA RAINHA BEATRIZ', 'title-line2');
             
             /* --- LÓGICA DO PORTAL (ABERTURA COM A DIGITAL) --- */
             const openBtn = document.getElementById('open-portal-btn');
-            
             const bgMusic = document.getElementById('bg-music');
             const musicControl = document.getElementById('toggle-music');
             const musicControlContainer = document.getElementById('music-control');
             let isMusicPlaying = false;
 
-            // Congela o scroll do site até o usuário abrir o portal
             document.body.style.overflow = 'hidden';
 
             openBtn.addEventListener('click', () => {
@@ -629,11 +617,10 @@
                 }).catch(e => console.log(e));
 
                 setTimeout(() => {
-                    document.body.style.overflowY = 'auto'; // Libera a rolagem do site após animação
+                    document.body.style.overflowY = 'auto'; 
                 }, 1500);
             });
 
-            // Controle da música
             musicControl.addEventListener('click', () => {
                 if (isMusicPlaying) {
                     bgMusic.pause();
@@ -650,7 +637,7 @@
             /* --- CONTAGEM REGRESSIVA --- */
             const now = new Date();
             let targetYear = now.getFullYear();
-            let targetDate = new Date(targetYear, 9, 16, 20, 0, 0); // Mês 9 = Outubro
+            let targetDate = new Date(targetYear, 9, 16, 20, 0, 0);
 
             if (now.getTime() > targetDate.getTime()) {
                 targetDate.setFullYear(targetYear + 1);
@@ -676,14 +663,11 @@
 
             numAcompanhantesInput.addEventListener('input', (e) => {
                 let count = parseInt(e.target.value) || 0;
-                
-                // Limites de segurança
                 if (count > 6) { count = 6; e.target.value = 6; }
                 if (count < 0) { count = 0; e.target.value = 0; }
                 
-                acompanhantesContainer.innerHTML = ''; // Limpa os campos anteriores
+                acompanhantesContainer.innerHTML = ''; 
 
-                // Cria os novos campos obrigatórios
                 for(let i = 1; i <= count; i++) {
                     const div = document.createElement('div');
                     div.innerHTML = `
@@ -699,26 +683,32 @@
         const rsvpModal = document.getElementById('rsvp-modal');
         const rsvpContent = document.getElementById('rsvp-content');
         const rsvpForm = document.getElementById('rsvp-form');
+        const rsvpFooter = document.getElementById('rsvp-footer');
         const rsvpSuccess = document.getElementById('rsvp-success');
 
         window.openRSVP = function() {
-            document.body.style.overflow = 'hidden'; // Trava o scroll do site no fundo
+            document.body.style.overflow = 'hidden'; 
             rsvpModal.classList.remove('hidden');
             rsvpModal.classList.add('flex');
             setTimeout(() => {
                 rsvpModal.classList.remove('opacity-0');
                 rsvpContent.classList.remove('scale-95');
             }, 10);
-            rsvpForm.classList.remove('hidden');
-            rsvpSuccess.classList.add('hidden');
             
-            // Reseta o formulário e os acompanhantes dinâmicos ao abrir
+            // Restaura visibilidade do form e footer
+            rsvpForm.classList.remove('hidden');
+            rsvpFooter.classList.remove('hidden');
+            
+            // Oculta a mensagem de sucesso
+            rsvpSuccess.classList.add('hidden');
+            rsvpSuccess.classList.remove('flex');
+            
             rsvpForm.reset();
             document.getElementById('acompanhantes-container').innerHTML = ''; 
         }
 
         window.closeRSVP = function() {
-            document.body.style.overflow = 'auto'; // Destrava o scroll do site
+            document.body.style.overflow = 'auto'; 
             rsvpModal.classList.add('opacity-0');
             rsvpContent.classList.add('scale-95');
             setTimeout(() => {
@@ -729,10 +719,15 @@
 
         window.submitRSVP = function(event) {
             event.preventDefault();
-            // Lógica de envio (que você pode ligar ao Google Sheets, Formspree ou Email)
+            // Aqui entra a lógica de envio (Google Sheets, email, etc.)
             
+            // Esconde form e botão
             rsvpForm.classList.add('hidden');
+            rsvpFooter.classList.add('hidden');
+            
+            // Mostra tela de sucesso
             rsvpSuccess.classList.remove('hidden');
+            rsvpSuccess.classList.add('flex');
         }
 
         /* --- LÓGICA DA GALERIA DE REFERÊNCIAS --- */
@@ -742,7 +737,7 @@
         let referencesLoaded = false;
 
         window.openReferences = function() {
-            document.body.style.overflow = 'hidden'; // Trava o scroll do site no fundo
+            document.body.style.overflow = 'hidden'; 
             referencesModal.classList.remove('hidden');
             referencesModal.classList.add('flex');
             setTimeout(() => {
@@ -750,20 +745,16 @@
                 referencesContent.classList.remove('scale-95');
             }, 10);
             
-            // Carrega as imagens dinamicamente apenas na primeira vez que abre
             if (!referencesLoaded) {
                 const totalImages = 19;
                 for (let i = 1; i <= totalImages; i++) {
                     const fileName = `${i}.jpeg`;
-                    
-                    // Uso de caminho relativo estrito (./) para evitar erros de leitura no GitHub Pages
                     const imagePath = `./roupa/${fileName}`;
                     const fallbackPath = `./roupa/${i}.jpg`;
                     
                     const imgDiv = document.createElement('div');
                     imgDiv.className = 'relative aspect-[3/4] overflow-hidden rounded border border-wakanda-purple/30 group bg-[#111] cursor-pointer';
                     
-                    // Abre o lightbox garantindo que puxa o caminho que DEU CERTO
                     imgDiv.onclick = function() {
                         const actualSrc = this.querySelector('img').src;
                         openLightbox(actualSrc);
@@ -782,7 +773,7 @@
         }
 
         window.closeReferences = function() {
-            document.body.style.overflow = 'auto'; // Destrava o scroll do site
+            document.body.style.overflow = 'auto'; 
             referencesModal.classList.add('opacity-0');
             referencesContent.classList.add('scale-95');
             setTimeout(() => {
@@ -811,7 +802,7 @@
             setTimeout(() => {
                 lightboxModal.classList.add('hidden');
                 lightboxModal.classList.remove('flex');
-                lightboxImg.src = ''; // Limpa a imagem para não piscar a anterior na próxima abertura
+                lightboxImg.src = ''; 
             }, 300);
         }
     </script>
