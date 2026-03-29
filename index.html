@@ -590,21 +590,21 @@
                                 <i class="fa-brands fa-pix text-2xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-wakanda text-lg sm:text-xl text-white group-hover:text-wakanda-gold transition-colors">Vibranium para a Beatriz</h4>
+                                <h4 class="font-wakanda text-lg sm:text-xl text-white group-hover:text-wakanda-gold transition-colors">Pix para Beatriz</h4>
                                 <p class="font-tech text-gray-400 text-sm sm:text-base mt-1">Contribua com qualquer valor (PIX) para os projetos da nova Rainha.</p>
                             </div>
                         </div>
                     </button>
 
-                    <button onclick="showWishlistView()" class="clip-futuristic relative group bg-[#111] hover:bg-[#1a1a1a] border border-yellow-600/50 hover:border-yellow-400 p-6 sm:p-8 transition-all duration-300 text-left overflow-hidden">
+                    <button onclick="showGiftImage()" class="clip-futuristic relative group bg-[#111] hover:bg-[#1a1a1a] border border-yellow-600/50 hover:border-yellow-400 p-6 sm:p-8 transition-all duration-300 text-left overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-r from-yellow-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         <div class="flex items-center gap-4 relative z-10">
                             <div class="w-14 h-14 rounded-full bg-yellow-600/20 flex items-center justify-center text-yellow-500 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-list-check text-2xl"></i>
+                                <i class="fa-solid fa-gift text-2xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-wakanda text-lg sm:text-xl text-white group-hover:text-yellow-400 transition-colors">Wakanda Wishlist</h4>
-                                <p class="font-tech text-gray-400 text-sm sm:text-base mt-1">Escolha um item especial na lista oficial de presentes disponíveis.</p>
+                                <h4 class="font-wakanda text-lg sm:text-xl text-white group-hover:text-yellow-400 transition-colors">Ideias de Presentes</h4>
+                                <p class="font-tech text-gray-400 text-sm sm:text-base mt-1">Veja a imagem com os detalhes e sugestões de presentes para a Beatriz.</p>
                             </div>
                         </div>
                     </button>
@@ -633,50 +633,20 @@
                     <p id="pix-copy-msg" class="text-green-400 font-tech mt-3 text-sm opacity-0 transition-opacity">Chave copiada com sucesso!</p>
                 </div>
 
-                <!-- TELA 3: WISHLIST (Puxada do Google Sheets) -->
-                <div id="gifts-wishlist" class="hidden-panel flex-col">
-                    <p class="font-tech text-gray-300 mb-6 text-sm sm:text-base text-center">
-                        Veja os presentes que a Beatriz gostaria de ganhar. Clique em "Reservar" para avisarmos que este presente já tem dono!
+                <!-- TELA 3: IMAGEM DE PRESENTES -->
+                <div id="gifts-image" class="hidden-panel flex-col items-center text-center">
+                    <p class="font-tech text-gray-300 mb-6 text-sm sm:text-base max-w-md mx-auto">
+                        Confira abaixo as sugestões de presentes que a Beatriz adoraria ganhar.
                     </p>
 
-                    <!-- Loader da Wishlist -->
-                    <div id="wishlist-loader" class="flex flex-col items-center justify-center py-10">
-                        <div class="w-12 h-12 border-4 border-wakanda-purple border-t-wakanda-vibranium rounded-full animate-spin mb-4"></div>
-                        <p class="font-tech text-wakanda-vibranium tracking-widest uppercase animate-pulse">Acedendo aos Arquivos Reais...</p>
+                    <div class="w-full max-w-md mx-auto bg-[#111] p-2 rounded-lg shadow-[0_0_20px_rgba(255,215,0,0.2)] mb-6 border border-yellow-600/30">
+                        <!-- Crie a imagem dos presentes e guarde como ideias_presentes.jpg na pasta img -->
+                        <img src="./img/ideias_presentes.jpg" alt="Lista de Presentes" class="w-full h-auto object-contain rounded" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x800.png?text=IMAGEM+DOS+PRESENTES+AQUI';">
                     </div>
 
-                    <!-- Grid de Presentes -->
-                    <div id="wishlist-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 hidden-panel">
-                        <!-- Itens injetados via JS -->
-                    </div>
-                </div>
-
-                <!-- TELA 4: FORMULÁRIO DE RESERVA DE PRESENTE -->
-                <div id="gifts-reserve" class="hidden-panel flex-col items-center max-w-md mx-auto w-full">
-                    <div class="w-16 h-16 rounded-full bg-yellow-600/20 flex items-center justify-center text-yellow-500 mb-4 border border-yellow-600/50">
-                        <i class="fa-solid fa-hand-holding-heart text-2xl"></i>
-                    </div>
-                    <h4 class="font-wakanda text-xl text-white text-center mb-2">Reservar Presente</h4>
-                    <p id="reserve-item-name" class="font-tech text-yellow-500 text-lg text-center mb-6 font-bold">Nome do Item Aqui</p>
-
-                    <form id="reserve-form" class="w-full space-y-4" onsubmit="submitReservation(event)">
-                        <input type="hidden" id="reserve-item-id">
-                        <div>
-                            <label class="block font-tech text-sm text-gray-400 uppercase tracking-wider mb-1">Seu Nome Completo</label>
-                            <input type="text" id="reserve-nome" required placeholder="Quem vai dar o presente?" class="w-full bg-[#111] border border-wakanda-purple/50 focus:border-wakanda-vibranium text-white p-3 outline-none font-tech transition-colors clip-futuristic">
-                        </div>
-                        <button type="submit" id="submit-reserve-btn" class="w-full clip-btn bg-yellow-600 hover:bg-yellow-500 text-wakanda-darker font-bold font-wakanda text-sm sm:text-base py-3 px-8 uppercase tracking-wider transition-colors shadow-lg mt-4">
-                            Confirmar Reserva
-                        </button>
-                    </form>
-
-                    <!-- Mensagem de Sucesso da Reserva -->
-                    <div id="reserve-success" class="hidden flex-col items-center justify-center py-6 text-center w-full">
-                        <i class="fa-solid fa-check-circle text-5xl text-green-500 mb-4"></i>
-                        <h4 class="font-wakanda text-xl text-white">Presente Reservado!</h4>
-                        <p class="font-tech text-gray-400 mt-2">A Rainha agradece a sua generosidade.</p>
-                        <button onclick="showWishlistView()" class="mt-6 text-wakanda-vibranium underline font-tech uppercase tracking-wider text-xs sm:text-sm">Voltar para a Lista</button>
-                    </div>
+                    <button onclick="openLightbox(document.querySelector('#gifts-image img').src)" class="clip-btn bg-yellow-600 hover:bg-yellow-500 text-wakanda-darker font-bold font-wakanda text-sm sm:text-base py-3 px-8 uppercase tracking-wider transition-colors shadow-lg">
+                        <i class="fa-solid fa-magnifying-glass mr-2"></i> Ampliar Imagem
+                    </button>
                 </div>
 
             </div>
@@ -686,9 +656,8 @@
     <!-- Scripts -->
     <script>
         // =========================================================
-        // LINKS DO GOOGLE APPS SCRIPT (RSVP E PRESENTES)
+        // LINKS DO GOOGLE APPS SCRIPT (Apenas RSVP agora)
         // =========================================================
-        const SCRIPT_URL_PRESENTES = 'https://script.google.com/macros/s/AKfycbzBunliUU_WkR7Vikb9OjgDnVMF-1rLrCQtO-BMSFIO7g7tR3h9z1so30PE8862zm1x/exec'; 
         const SCRIPT_URL_RSVP = 'https://script.google.com/macros/s/AKfycbytZuEhBMu5PT8yhX0UedJtUrCQccl-6Iq-c5jG78aL5kkwYwwp9lWJhc8wiUCgyJCdJg/exec';
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -914,7 +883,7 @@
         }
 
         /* ========================================================= */
-        /* MODAL DE PRESENTES E INTEGRAÇÃO (PIX E WISHLIST)          */
+        /* MODAL DE PRESENTES (PIX E IMAGEM DE IDEIAS)               */
         /* ========================================================= */
         const giftsModal = document.getElementById('gifts-modal');
         const giftsContent = document.getElementById('gifts-content');
@@ -924,12 +893,7 @@
         
         const viewMenu = document.getElementById('gifts-menu');
         const viewPix = document.getElementById('gifts-pix');
-        const viewWishlist = document.getElementById('gifts-wishlist');
-        const viewReserve = document.getElementById('gifts-reserve');
-        
-        const wishlistLoader = document.getElementById('wishlist-loader');
-        const wishlistGrid = document.getElementById('wishlist-grid');
-        let wishlistCached = false; 
+        const viewGiftImage = document.getElementById('gifts-image');
 
         window.openGifts = function() {
             document.body.style.overflow = 'hidden'; 
@@ -959,20 +923,29 @@
             
             viewMenu.classList.remove('hidden-panel');
             viewPix.classList.add('hidden-panel');
-            viewWishlist.classList.add('hidden-panel');
-            viewReserve.classList.add('hidden-panel');
+            viewGiftImage.classList.add('hidden-panel');
         }
 
         window.showPixView = function() {
-            giftsTitle.innerHTML = '<i class="fa-brands fa-pix mr-3 text-wakanda-vibranium"></i> Vibranium (PIX)';
+            giftsTitle.innerHTML = '<i class="fa-brands fa-pix mr-3 text-wakanda-vibranium"></i> Pix para Beatriz';
             btnVoltarPresentes.classList.remove('hidden-panel');
             btnVoltarPresentes.setAttribute('onclick', 'showGiftsMenu()');
             
             viewMenu.classList.add('hidden-panel');
             viewPix.classList.remove('hidden-panel');
             viewPix.classList.add('flex');
-            viewWishlist.classList.add('hidden-panel');
-            viewReserve.classList.add('hidden-panel');
+            viewGiftImage.classList.add('hidden-panel');
+        }
+
+        window.showGiftImage = function() {
+            giftsTitle.innerHTML = '<i class="fa-solid fa-gift mr-3 text-yellow-500"></i> Ideias de Presentes';
+            btnVoltarPresentes.classList.remove('hidden-panel');
+            btnVoltarPresentes.setAttribute('onclick', 'showGiftsMenu()');
+            
+            viewMenu.classList.add('hidden-panel');
+            viewPix.classList.add('hidden-panel');
+            viewGiftImage.classList.remove('hidden-panel');
+            viewGiftImage.classList.add('flex');
         }
 
         window.copyPixKey = function() {
@@ -982,165 +955,6 @@
                 msg.classList.remove('opacity-0');
                 setTimeout(() => msg.classList.add('opacity-0'), 2500);
             });
-        }
-
-        // ================= WAKANDA WISHLIST =================
-        window.showWishlistView = function() {
-            giftsTitle.innerHTML = '<i class="fa-solid fa-list-check mr-3 text-yellow-500"></i> Wakanda Wishlist';
-            btnVoltarPresentes.classList.remove('hidden-panel');
-            btnVoltarPresentes.setAttribute('onclick', 'showGiftsMenu()');
-            
-            viewMenu.classList.add('hidden-panel');
-            viewPix.classList.add('hidden-panel');
-            viewWishlist.classList.remove('hidden-panel');
-            viewWishlist.classList.add('flex');
-            viewReserve.classList.add('hidden-panel');
-
-            document.getElementById('reserve-form').classList.remove('hidden');
-            document.getElementById('reserve-success').classList.add('hidden');
-            document.getElementById('reserve-success').classList.remove('flex');
-
-            if (!wishlistCached) {
-                loadWishlistData();
-            } 
-        }
-
-        function loadWishlistData() {
-            wishlistLoader.classList.remove('hidden-panel');
-            wishlistGrid.classList.add('hidden-panel');
-            
-            // Faz um pedido para o Google Sheets e limpa a cache para trazer os dados novos
-            fetch(SCRIPT_URL_PRESENTES + "?action=getGifts&t=" + new Date().getTime())
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro de permissão no Google');
-                }
-                return response.json();
-            })
-            .then(data => {
-                renderGifts(data);
-                wishlistCached = true;
-                wishlistLoader.classList.add('hidden-panel');
-                wishlistGrid.classList.remove('hidden-panel');
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-                
-                wishlistLoader.innerHTML = `
-                    <div class="text-center p-4 border border-red-500/50 bg-red-500/10 rounded mb-4 max-w-sm mx-auto">
-                        <p class="text-red-400 font-tech text-sm"><i class="fa-solid fa-triangle-exclamation mr-2"></i> Falha de comunicação.</p>
-                        <p class="text-gray-400 font-tech text-xs mt-1">Verifique as permissões de acesso da nova folha de presentes no seu Google Script.</p>
-                    </div>
-                    <p class="text-yellow-500 font-tech text-xs animate-pulse text-center">A carregar modo provisório...</p>
-                `;
-                
-                setTimeout(() => {
-                    renderMockGifts();
-                }, 2500);
-            });
-        }
-
-        function renderGifts(gifts) {
-            wishlistGrid.innerHTML = '';
-            
-            if (gifts.length === 0) {
-                wishlistGrid.innerHTML = '<div class="col-span-2 text-center text-gray-400 font-tech py-6">Nenhum presente disponível no momento.</div>';
-                return;
-            }
-
-            gifts.forEach(gift => {
-                if (gift.status && gift.status.toLowerCase() === 'reservado') return;
-
-                const card = document.createElement('div');
-                card.className = 'bg-[#111] border border-yellow-600/30 p-4 clip-futuristic flex flex-col justify-between group hover:border-yellow-500 transition-colors';
-                
-                let linkBtn = '';
-                if (gift.link && gift.link.trim() !== '') {
-                    linkBtn = `<a href="${gift.link}" target="_blank" class="text-xs font-tech text-gray-400 hover:text-white underline mt-2 block w-max"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Ver Sugestão</a>`;
-                }
-
-                card.innerHTML = `
-                    <div>
-                        <h5 class="font-wakanda text-white text-lg group-hover:text-yellow-400 transition-colors">${gift.presente}</h5>
-                        <p class="font-tech text-gray-400 text-xs sm:text-sm mt-1">${gift.descricao || ''}</p>
-                        ${linkBtn}
-                    </div>
-                    <button onclick="openReserveView('${gift.id}', '${gift.presente.replace(/'/g, "\\'")}')" class="mt-4 w-full bg-yellow-600/20 hover:bg-yellow-600 text-yellow-500 hover:text-wakanda-darker border border-yellow-600/50 font-tech font-bold uppercase tracking-wider text-xs py-2 clip-btn transition-colors">
-                        Reservar Presente
-                    </button>
-                `;
-                wishlistGrid.appendChild(card);
-            });
-            
-            if (wishlistGrid.innerHTML === '') {
-                wishlistGrid.innerHTML = '<div class="col-span-2 text-center text-gray-400 font-tech py-6">A Rainha já recebeu todos os presentes desta lista! <br>Mas você ainda pode usar a opção de PIX.</div>';
-            }
-        }
-
-        // ================= RESERVAR PRESENTE =================
-        window.openReserveView = function(id, name) {
-            giftsTitle.innerHTML = '<i class="fa-solid fa-lock mr-3 text-yellow-500"></i> Confirmar Presente';
-            btnVoltarPresentes.setAttribute('onclick', 'showWishlistView()');
-            
-            viewWishlist.classList.add('hidden-panel');
-            viewReserve.classList.remove('hidden-panel');
-            viewReserve.classList.add('flex');
-
-            document.getElementById('reserve-item-id').value = id;
-            document.getElementById('reserve-item-name').innerText = name;
-            document.getElementById('reserve-nome').value = ''; 
-        }
-
-        window.submitReservation = function(event) {
-            event.preventDefault();
-            
-            const btn = document.getElementById('submit-reserve-btn');
-            btn.innerText = 'Trancando Arquivos...';
-            btn.disabled = true;
-
-            const id = document.getElementById('reserve-item-id').value;
-            const nome = document.getElementById('reserve-nome').value;
-
-            const formData = new URLSearchParams();
-            formData.append('action', 'reserve');
-            formData.append('id', id);
-            formData.append('nome', nome);
-
-            // POST com no-cors para garantir o envio invisível sem bloqueios de segurança
-            fetch(SCRIPT_URL_PRESENTES, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors' 
-            })
-            .then(() => {
-                document.getElementById('reserve-form').classList.add('hidden');
-                document.getElementById('reserve-success').classList.remove('hidden');
-                document.getElementById('reserve-success').classList.add('flex');
-                wishlistCached = false; // Vai forçar a buscar a lista nova da próxima vez
-            })
-            .catch(error => {
-                console.error('Erro na reserva', error);
-                document.getElementById('reserve-form').classList.add('hidden');
-                document.getElementById('reserve-success').classList.remove('hidden');
-                document.getElementById('reserve-success').classList.add('flex');
-                wishlistCached = false;
-            })
-            .finally(() => {
-                btn.innerText = 'Confirmar Reserva';
-                btn.disabled = false;
-            });
-        }
-
-        function renderMockGifts() {
-            const mockData = [
-                { id: '1', presente: 'Livro sobre História de Wakanda', descricao: 'Para estudos reais.', link: 'https://amazon.com', status: 'Disponível' },
-                { id: '2', presente: 'Kimoyo Beads Personalizados', descricao: 'Kit de joias para tecnologia.', link: '', status: 'Disponível' },
-                { id: '3', presente: 'Conjunto de Maquiagem Elegance', descricao: 'Tons terrosos e dourados.', link: 'https://sephora.com', status: 'Reservado' },
-                { id: '4', presente: 'Vale SPA & Massagem', descricao: 'Dia de relaxamento para a Rainha.', link: '', status: 'Disponível' }
-            ];
-            wishlistLoader.classList.add('hidden-panel');
-            wishlistGrid.classList.remove('hidden-panel');
-            renderGifts(mockData);
         }
 
         /* ========================================================= */
