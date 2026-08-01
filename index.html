@@ -455,7 +455,7 @@
             </div>
         </section>
 
-        <footer class="mt-auto text-center border-t border-wakanda-purple/30 pt-6 sm:pt-8 pb-8 sm:pb-12">
+        <footer class="mt-auto text-center border-t border-wakanda-purple/30 pt-6 sm:pt-8 pb-20 sm:pb-24">
             <p class="font-tech text-gray-500 uppercase tracking-[0.1em] sm:tracking-widest text-xs sm:text-sm">
                 Wakanda Forever <span class="text-wakanda-vibranium mx-1 sm:mx-2">|</span> A Nova Rainha
             </p>
@@ -464,17 +464,22 @@
 
     </main>
 
-    <!-- Botão Flutuante Confirmar Presença -->
-    <div id="fab-rsvp" class="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 hidden">
-        <button onclick="openRSVP()" class="flex items-center gap-2 bg-gradient-to-r from-wakanda-purple to-wakanda-vibranium text-white font-tech font-bold uppercase tracking-wider text-xs sm:text-sm py-3 px-4 sm:px-5 rounded-full shadow-[0_0_20px_rgba(157,0,255,0.5)] hover:shadow-[0_0_30px_rgba(157,0,255,0.7)] hover:scale-105 transition-all duration-300 border border-wakanda-vibranium/50">
-            <i class="fa-solid fa-fingerprint text-base sm:text-lg"></i>
-            <span class="hidden sm:inline">Confirmar Presença</span>
-            <span class="sm:hidden">Confirmar</span>
-        </button>
+    <!-- Barra Flutuante de Ações -->
+    <div id="fab-rsvp" class="fixed bottom-0 left-0 right-0 z-40 hidden">
+        <div class="bg-[#0a0a0a]/95 backdrop-blur-md border-t border-wakanda-purple/40 px-4 py-3 flex items-center justify-center gap-3 sm:gap-4 shadow-[0_-4px_20px_rgba(157,0,255,0.3)]">
+            <button onclick="openRSVP()" class="clip-btn flex-1 sm:flex-none flex items-center justify-center gap-2 bg-gradient-to-r from-wakanda-purple to-wakanda-vibranium text-white font-tech font-bold uppercase tracking-wider text-[10px] sm:text-xs py-3 px-3 sm:px-6 shadow-lg hover:scale-105 transition-all">
+                <i class="fa-solid fa-fingerprint text-sm sm:text-base"></i>
+                <span>Confirmar Presença</span>
+            </button>
+            <button onclick="openGifts()" class="clip-btn flex-1 sm:flex-none flex items-center justify-center gap-2 bg-gradient-to-r from-yellow-600 to-yellow-400 text-wakanda-darker font-tech font-bold uppercase tracking-wider text-[10px] sm:text-xs py-3 px-3 sm:px-6 shadow-lg hover:scale-105 transition-all">
+                <i class="fa-solid fa-gift text-sm sm:text-base"></i>
+                <span>Presentes</span>
+            </button>
+        </div>
     </div>
 
     <!-- Controle de Música -->
-    <div id="music-control" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 paused">
+    <div id="music-control" class="fixed bottom-16 right-4 sm:bottom-[4.5rem] sm:right-6 z-40 paused">
         <button id="toggle-music" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#0a0a0a] border border-wakanda-vibranium flex items-center justify-center text-wakanda-vibranium shadow-[0_0_15px_rgba(157,0,255,0.3)] hover:bg-wakanda-purple hover:text-white transition-all group">
             <div class="audio-bars absolute inset-0 m-auto w-3 sm:w-4 h-[12px] sm:h-[15px] opacity-0 group-[.playing]:opacity-100 transition-opacity">
                 <span></span><span></span><span></span><span></span>
