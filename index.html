@@ -975,12 +975,36 @@
             }, 10);
             
             if (!referencesLoaded) {
-                const totalImages = 19;
-                for (let i = 1; i <= totalImages; i++) {
-                    const fileName = `${i}.jpeg`;
-                    const imagePath = `./roupa/${fileName}`;
-                    const fallbackPath = `./roupa/${i}.jpg`;
-                    
+                // Carrega imagens automaticamente até não encontrar mais nenhuma
+                let i = 1;
+
+                function tryLoadImage(index) {
+                    const imagePath = `./roupa/${index}.jpeg`;
+                    const fallbackPath = `./roupa/${index}.jpg`;
+
+                    // Testa se a imagem existe antes de adicionar ao grid
+                    const testImg = new Image();
+                    testImg.onload = function() {
+                        addImageToGrid(index, this.src);
+                        tryLoadImage(index + 1);
+                    };
+                    testImg.onerror = function() {
+                        // Tenta o fallback .jpg
+                        const testJpg = new Image();
+                        testJpg.onload = function() {
+                            addImageToGrid(index, this.src);
+                            tryLoadImage(index + 1);
+                        };
+                        testJpg.onerror = function() {
+                            // Não encontrou mais imagens, para aqui
+                            referencesLoaded = true;
+                        };
+                        testJpg.src = fallbackPath;
+                    };
+                    testImg.src = imagePath;
+                }
+
+                function addImageToGrid(index, src) {
                     const imgDiv = document.createElement('div');
                     imgDiv.className = 'relative aspect-[3/4] overflow-hidden rounded border border-wakanda-purple/30 group bg-[#111] cursor-pointer';
                     
@@ -993,11 +1017,12 @@
                         <div class="absolute inset-0 bg-wakanda-vibranium opacity-0 group-hover:opacity-20 transition-opacity z-10 pointer-events-none flex items-center justify-center">
                             <i class="fa-solid fa-expand text-white text-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg"></i>
                         </div>
-                        <img src="${imagePath}" onerror="this.onerror=null; this.src='${fallbackPath}';" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Referência de Look ${i}">
+                        <img src="${src}" loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Referência de Look ${index}">
                     `;
                     referencesGrid.appendChild(imgDiv);
                 }
-                referencesLoaded = true;
+
+                tryLoadImage(1);
             }
         }
 
