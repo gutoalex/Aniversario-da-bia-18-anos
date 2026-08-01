@@ -882,18 +882,49 @@
             data.append('acompanhantes', JSON.stringify(acompanhantes)); 
             data.append('total_pessoas', numAcompanhantes + 1); 
 
-            fetch(SCRIPT_URL_RSVP, { method: 'POST', body: data, mode: 'no-cors' })
-                .then(response => {
-                    rsvpForm.classList.add('hidden');
-                    rsvpFooter.classList.add('hidden');
-                    rsvpSuccess.classList.remove('hidden');
-                    rsvpSuccess.classList.add('flex');
+            fetch(SCRIPT_URL_RSVP, { method: 'POST', body: data })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status === 'duplicado') {
+                        // Mostra mensagem de já confirmado
+                        rsvpForm.classList.add('hidden');
+                        rsvpFooter.classList.add('hidden');
+                        rsvpSuccess.innerHTML = `
+                            <i class="fa-solid fa-circle-info text-5xl text-wakanda-vibranium mb-4"></i>
+                            <h4 class="font-wakanda text-xl text-white">Você já está na lista!</h4>
+                            <p class="font-tech text-gray-400 mt-2">${result.message}</p>
+                        `;
+                        rsvpSuccess.classList.remove('hidden');
+                        rsvpSuccess.classList.add('flex');
+                    } else if (result.status === 'sucesso') {
+                        // Sucesso normal
+                        rsvpForm.classList.add('hidden');
+                        rsvpFooter.classList.add('hidden');
+                        rsvpSuccess.innerHTML = `
+                            <i class="fa-solid fa-check-circle text-5xl text-wakanda-gold mb-4"></i>
+                            <h4 class="font-wakanda text-xl text-white">Confirmação Recebida!</h4>
+                            <p class="font-tech text-gray-400 mt-2">Sua presença foi confirmada nos arquivos reais.</p>
+                        `;
+                        rsvpSuccess.classList.remove('hidden');
+                        rsvpSuccess.classList.add('flex');
+                    } else {
+                        throw new Error('Resposta inesperada');
+                    }
                 })
                 .catch(error => {
                     console.error('Erro!', error);
-                    alert('Houve um problema de conexão com as fronteiras. Tente novamente.');
-                    btn.innerText = 'Confirmar Presença';
-                    btn.disabled = false;
+                    rsvpForm.classList.add('hidden');
+                    rsvpFooter.classList.add('hidden');
+                    rsvpSuccess.innerHTML = `
+                        <i class="fa-solid fa-triangle-exclamation text-5xl text-red-500 mb-4"></i>
+                        <h4 class="font-wakanda text-xl text-white">Erro na Transmissão</h4>
+                        <p class="font-tech text-gray-400 mt-2">Houve um problema de conexão com as fronteiras de Wakanda. Tente novamente mais tarde.</p>
+                        <button onclick="openRSVP()" class="mt-4 clip-btn bg-wakanda-purple hover:bg-wakanda-vibranium text-white font-tech text-sm py-2 px-6 uppercase tracking-wider transition-colors">
+                            <i class="fa-solid fa-rotate-right mr-2"></i> Tentar Novamente
+                        </button>
+                    `;
+                    rsvpSuccess.classList.remove('hidden');
+                    rsvpSuccess.classList.add('flex');
                 });
         }
 
